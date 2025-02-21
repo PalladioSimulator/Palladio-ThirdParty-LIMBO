@@ -24,8 +24,8 @@ public class LinearIncreaseAndDeclineItemProvider extends BurstItemProvider {
 	 * @generated
 	 */
 	public LinearIncreaseAndDeclineItemProvider(AdapterFactory adapterFactory) {
-		super(adapterFactory);
-	}
+        super(adapterFactory);
+    }
 
 	/**
 	 * This returns the property descriptors for the adapted class. <!--
@@ -35,53 +35,48 @@ public class LinearIncreaseAndDeclineItemProvider extends BurstItemProvider {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (itemPropertyDescriptors == null) {
-			super.getPropertyDescriptors(object);
+        if (itemPropertyDescriptors == null) {
+            super.getPropertyDescriptors(object);
 
-		}
-		return itemPropertyDescriptors;
-	}
+        }
+        return itemPropertyDescriptors;
+    }
 
 	/**
-	 * This returns LinearIncreaseAndDecline.gif. <!-- begin-user-doc --> <!--
+     * This returns LinearIncreaseAndDecline.gif.
+     * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(
-				object,
-				getResourceLocator().getImage(
-						"full/obj16/LinearIncreaseAndDecline"));
-	}
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/LinearIncreaseAndDecline"));
+    }
 
 	/**
-	 * This returns the label text for the adapted class. <!-- begin-user-doc
+     * This returns the label text for the adapted class.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String getText(Object object) {
-		LinearIncreaseAndDecline linearIncreaseAndDecline = (LinearIncreaseAndDecline) object;
-		return getString("_UI_LinearIncreaseAndDecline_type") + " "
-				+ linearIncreaseAndDecline.getPeak();
-	}
+        LinearIncreaseAndDecline linearIncreaseAndDecline = (LinearIncreaseAndDecline)object;
+        return getString("_UI_LinearIncreaseAndDecline_type") + " " + linearIncreaseAndDecline.getPeak();
+    }
 
 	/**
-	 * This handles model notifications by calling {@link #updateChildren} to
-	 * update any cached children and by creating a viewer notification, which
-	 * it passes to {@link #fireNotifyChanged}. <!-- begin-user-doc --> <!--
+     * This handles model notifications by calling {@link #updateChildren} to update any cached
+     * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+     * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void notifyChanged(Notification notification) {
-		updateChildren(notification);
-		super.notifyChanged(notification);
-	}
+        updateChildren(notification);
+        super.notifyChanged(notification);
+    }
 
 	/**
 	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s
@@ -93,7 +88,7 @@ public class LinearIncreaseAndDeclineItemProvider extends BurstItemProvider {
 	@Override
 	protected void collectNewChildDescriptors(
 			Collection<Object> newChildDescriptors, Object object) {
-		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
+        super.collectNewChildDescriptors(newChildDescriptors, object);
+    }
 
 }

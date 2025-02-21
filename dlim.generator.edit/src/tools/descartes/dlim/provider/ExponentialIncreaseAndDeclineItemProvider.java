@@ -26,8 +26,8 @@ public class ExponentialIncreaseAndDeclineItemProvider extends
 	 */
 	public ExponentialIncreaseAndDeclineItemProvider(
 			AdapterFactory adapterFactory) {
-		super(adapterFactory);
-	}
+        super(adapterFactory);
+    }
 
 	/**
 	 * This returns the property descriptors for the adapted class. <!--
@@ -37,53 +37,48 @@ public class ExponentialIncreaseAndDeclineItemProvider extends
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (itemPropertyDescriptors == null) {
-			super.getPropertyDescriptors(object);
+        if (itemPropertyDescriptors == null) {
+            super.getPropertyDescriptors(object);
 
-		}
-		return itemPropertyDescriptors;
-	}
+        }
+        return itemPropertyDescriptors;
+    }
 
 	/**
-	 * This returns ExponentialIncreaseAndDecline.gif. <!-- begin-user-doc -->
+     * This returns ExponentialIncreaseAndDecline.gif.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(
-				object,
-				getResourceLocator().getImage(
-						"full/obj16/ExponentialIncreaseAndDecline"));
-	}
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/ExponentialIncreaseAndDecline"));
+    }
 
 	/**
-	 * This returns the label text for the adapted class. <!-- begin-user-doc
+     * This returns the label text for the adapted class.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String getText(Object object) {
-		ExponentialIncreaseAndDecline exponentialIncreaseAndDecline = (ExponentialIncreaseAndDecline) object;
-		return getString("_UI_ExponentialIncreaseAndDecline_type") + " "
-				+ exponentialIncreaseAndDecline.getPeak();
-	}
+        ExponentialIncreaseAndDecline exponentialIncreaseAndDecline = (ExponentialIncreaseAndDecline)object;
+        return getString("_UI_ExponentialIncreaseAndDecline_type") + " " + exponentialIncreaseAndDecline.getPeak();
+    }
 
 	/**
-	 * This handles model notifications by calling {@link #updateChildren} to
-	 * update any cached children and by creating a viewer notification, which
-	 * it passes to {@link #fireNotifyChanged}. <!-- begin-user-doc --> <!--
+     * This handles model notifications by calling {@link #updateChildren} to update any cached
+     * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+     * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void notifyChanged(Notification notification) {
-		updateChildren(notification);
-		super.notifyChanged(notification);
-	}
+        updateChildren(notification);
+        super.notifyChanged(notification);
+    }
 
 	/**
 	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s
@@ -95,7 +90,7 @@ public class ExponentialIncreaseAndDeclineItemProvider extends
 	@Override
 	protected void collectNewChildDescriptors(
 			Collection<Object> newChildDescriptors, Object object) {
-		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
+        super.collectNewChildDescriptors(newChildDescriptors, object);
+    }
 
 }

@@ -14,9 +14,8 @@ import tools.descartes.dlim.DlimPackage;
 import tools.descartes.dlim.Sin;
 
 /**
- * This is the item provider adapter for a {@link tools.descartes.dlim.Sin}
- * object. <!-- begin-user-doc --> <!-- end-user-doc -->
- * 
+ * This is the item provider adapter for a {@link tools.descartes.dlim.Sin} object.
+ * <!-- begin-user-doc --> <!-- end-user-doc -->
  * @generated
  */
 public class SinItemProvider extends SeasonalItemProvider {
@@ -27,8 +26,8 @@ public class SinItemProvider extends SeasonalItemProvider {
 	 * @generated
 	 */
 	public SinItemProvider(AdapterFactory adapterFactory) {
-		super(adapterFactory);
-	}
+        super(adapterFactory);
+    }
 
 	/**
 	 * This returns the property descriptors for the adapted class. <!--
@@ -38,52 +37,60 @@ public class SinItemProvider extends SeasonalItemProvider {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (itemPropertyDescriptors == null) {
-			super.getPropertyDescriptors(object);
+        if (itemPropertyDescriptors == null) {
+            super.getPropertyDescriptors(object);
 
-			addMinPropertyDescriptor(object);
-			addMaxPropertyDescriptor(object);
-			addPeriodPropertyDescriptor(object);
-			addPhasePropertyDescriptor(object);
-		}
-		return itemPropertyDescriptors;
-	}
+            addMinPropertyDescriptor(object);
+            addMaxPropertyDescriptor(object);
+            addPeriodPropertyDescriptor(object);
+            addPhasePropertyDescriptor(object);
+        }
+        return itemPropertyDescriptors;
+    }
 
 	/**
-	 * This adds a property descriptor for the Min feature. <!-- begin-user-doc
+     * This adds a property descriptor for the Min feature.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	protected void addMinPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Sin_min_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Sin_min_feature", "_UI_Sin_type"),
-				DlimPackage.Literals.SIN__MIN, true, false, false,
-				ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
-	}
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Sin_min_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Sin_min_feature", "_UI_Sin_type"),
+                 DlimPackage.Literals.SIN__MIN,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+                 null,
+                 null));
+    }
 
 	/**
-	 * This adds a property descriptor for the Max feature. <!-- begin-user-doc
+     * This adds a property descriptor for the Max feature.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	protected void addMaxPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Sin_max_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Sin_max_feature", "_UI_Sin_type"),
-				DlimPackage.Literals.SIN__MAX, true, false, false,
-				ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
-	}
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Sin_max_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Sin_max_feature", "_UI_Sin_type"),
+                 DlimPackage.Literals.SIN__MAX,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+                 null,
+                 null));
+    }
 
 	/**
 	 * This adds a property descriptor for the Period feature. <!--
@@ -92,16 +99,20 @@ public class SinItemProvider extends SeasonalItemProvider {
 	 * @generated
 	 */
 	protected void addPeriodPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Sin_period_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Sin_period_feature", "_UI_Sin_type"),
-				DlimPackage.Literals.SIN__PERIOD, true, false, false,
-				ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
-	}
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Sin_period_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Sin_period_feature", "_UI_Sin_type"),
+                 DlimPackage.Literals.SIN__PERIOD,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+                 null,
+                 null));
+    }
 
 	/**
 	 * This adds a property descriptor for the Phase feature. <!--
@@ -110,63 +121,64 @@ public class SinItemProvider extends SeasonalItemProvider {
 	 * @generated
 	 */
 	protected void addPhasePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Sin_phase_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Sin_phase_feature", "_UI_Sin_type"),
-				DlimPackage.Literals.SIN__PHASE, true, false, false,
-				ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
-	}
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Sin_phase_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Sin_phase_feature", "_UI_Sin_type"),
+                 DlimPackage.Literals.SIN__PHASE,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+                 null,
+                 null));
+    }
 
 	/**
-	 * This returns Sin.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * This returns Sin.gif.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/Sin"));
-	}
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/Sin"));
+    }
 
 	/**
-	 * This returns the label text for the adapted class. <!-- begin-user-doc
+     * This returns the label text for the adapted class.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String getText(Object object) {
-		Sin sin = (Sin) object;
-		return getString("_UI_Sin_type") + " " + sin.getMin();
-	}
+        Sin sin = (Sin)object;
+        return getString("_UI_Sin_type") + " " + sin.getMin();
+    }
 
 	/**
-	 * This handles model notifications by calling {@link #updateChildren} to
-	 * update any cached children and by creating a viewer notification, which
-	 * it passes to {@link #fireNotifyChanged}. <!-- begin-user-doc --> <!--
+     * This handles model notifications by calling {@link #updateChildren} to update any cached
+     * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+     * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void notifyChanged(Notification notification) {
-		updateChildren(notification);
+        updateChildren(notification);
 
-		switch (notification.getFeatureID(Sin.class)) {
-		case DlimPackage.SIN__MIN:
-		case DlimPackage.SIN__MAX:
-		case DlimPackage.SIN__PERIOD:
-		case DlimPackage.SIN__PHASE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
-			return;
-		}
-		super.notifyChanged(notification);
-	}
+        switch (notification.getFeatureID(Sin.class)) {
+            case DlimPackage.SIN__MIN:
+            case DlimPackage.SIN__MAX:
+            case DlimPackage.SIN__PERIOD:
+            case DlimPackage.SIN__PHASE:
+                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+                return;
+        }
+        super.notifyChanged(notification);
+    }
 
 	/**
 	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s
@@ -178,7 +190,7 @@ public class SinItemProvider extends SeasonalItemProvider {
 	@Override
 	protected void collectNewChildDescriptors(
 			Collection<Object> newChildDescriptors, Object object) {
-		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
+        super.collectNewChildDescriptors(newChildDescriptors, object);
+    }
 
 }

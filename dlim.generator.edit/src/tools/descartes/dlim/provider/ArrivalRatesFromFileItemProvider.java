@@ -14,10 +14,9 @@ import tools.descartes.dlim.ArrivalRatesFromFile;
 import tools.descartes.dlim.DlimPackage;
 
 /**
- * This is the item provider adapter for a
- * {@link tools.descartes.dlim.ArrivalRatesFromFile} object. <!-- begin-user-doc
+ * This is the item provider adapter for a {@link tools.descartes.dlim.ArrivalRatesFromFile} object.
+ * <!-- begin-user-doc
  * --> <!-- end-user-doc -->
- * 
  * @generated
  */
 public class ArrivalRatesFromFileItemProvider extends FunctionItemProvider {
@@ -28,8 +27,8 @@ public class ArrivalRatesFromFileItemProvider extends FunctionItemProvider {
 	 * @generated
 	 */
 	public ArrivalRatesFromFileItemProvider(AdapterFactory adapterFactory) {
-		super(adapterFactory);
-	}
+        super(adapterFactory);
+    }
 
 	/**
 	 * This returns the property descriptors for the adapted class. <!--
@@ -39,13 +38,13 @@ public class ArrivalRatesFromFileItemProvider extends FunctionItemProvider {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (itemPropertyDescriptors == null) {
-			super.getPropertyDescriptors(object);
+        if (itemPropertyDescriptors == null) {
+            super.getPropertyDescriptors(object);
 
-			addFilePathPropertyDescriptor(object);
-		}
-		return itemPropertyDescriptors;
-	}
+            addFilePathPropertyDescriptor(object);
+        }
+        return itemPropertyDescriptors;
+    }
 
 	/**
 	 * This adds a property descriptor for the File Path feature. <!--
@@ -54,65 +53,64 @@ public class ArrivalRatesFromFileItemProvider extends FunctionItemProvider {
 	 * @generated
 	 */
 	protected void addFilePathPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ArrivalRatesFromFile_filePath_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ArrivalRatesFromFile_filePath_feature",
-						"_UI_ArrivalRatesFromFile_type"),
-				DlimPackage.Literals.ARRIVAL_RATES_FROM_FILE__FILE_PATH, true,
-				false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null,
-				null));
-	}
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_ArrivalRatesFromFile_filePath_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ArrivalRatesFromFile_filePath_feature", "_UI_ArrivalRatesFromFile_type"),
+                 DlimPackage.Literals.ARRIVAL_RATES_FROM_FILE__FILE_PATH,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
 
 	/**
-	 * This returns ArrivalRatesFromFile.gif. <!-- begin-user-doc --> <!--
+     * This returns ArrivalRatesFromFile.gif.
+     * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator()
-						.getImage("full/obj16/ArrivalRatesFromFile"));
-	}
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/ArrivalRatesFromFile"));
+    }
 
 	/**
-	 * This returns the label text for the adapted class. <!-- begin-user-doc
+     * This returns the label text for the adapted class.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String getText(Object object) {
-		String label = ((ArrivalRatesFromFile) object).getFilePath();
-		return label == null || label.length() == 0 ? getString("_UI_ArrivalRatesFromFile_type")
-				: getString("_UI_ArrivalRatesFromFile_type") + " " + label;
-	}
+        String label = ((ArrivalRatesFromFile)object).getFilePath();
+        return label == null || label.length() == 0 ?
+            getString("_UI_ArrivalRatesFromFile_type") :
+            getString("_UI_ArrivalRatesFromFile_type") + " " + label;
+    }
 
 	/**
-	 * This handles model notifications by calling {@link #updateChildren} to
-	 * update any cached children and by creating a viewer notification, which
-	 * it passes to {@link #fireNotifyChanged}. <!-- begin-user-doc --> <!--
+     * This handles model notifications by calling {@link #updateChildren} to update any cached
+     * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+     * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void notifyChanged(Notification notification) {
-		updateChildren(notification);
+        updateChildren(notification);
 
-		switch (notification.getFeatureID(ArrivalRatesFromFile.class)) {
-		case DlimPackage.ARRIVAL_RATES_FROM_FILE__FILE_PATH:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
-			return;
-		}
-		super.notifyChanged(notification);
-	}
+        switch (notification.getFeatureID(ArrivalRatesFromFile.class)) {
+            case DlimPackage.ARRIVAL_RATES_FROM_FILE__FILE_PATH:
+                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+                return;
+        }
+        super.notifyChanged(notification);
+    }
 
 	/**
 	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s
@@ -124,7 +122,7 @@ public class ArrivalRatesFromFileItemProvider extends FunctionItemProvider {
 	@Override
 	protected void collectNewChildDescriptors(
 			Collection<Object> newChildDescriptors, Object object) {
-		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
+        super.collectNewChildDescriptors(newChildDescriptors, object);
+    }
 
 }

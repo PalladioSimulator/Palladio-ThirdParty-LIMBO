@@ -6,9 +6,9 @@ import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 /**
- * This is the central singleton for the Dlim edit plugin. <!-- begin-user-doc
+ * This is the central singleton for the Dlim edit plugin.
+ * <!-- begin-user-doc
  * --> <!-- end-user-doc -->
- * 
  * @generated
  */
 public final class DlimEditPlugin extends EMFPlugin {
@@ -29,36 +29,38 @@ public final class DlimEditPlugin extends EMFPlugin {
 	private static Implementation plugin;
 
 	/**
-	 * Create the instance. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * Create the instance.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
 	public DlimEditPlugin() {
-		super(new ResourceLocator[] {});
-	}
+        super
+          (new ResourceLocator [] {
+           });
+    }
 
 	/**
-	 * Returns the singleton instance of the Eclipse plugin. <!-- begin-user-doc
+     * Returns the singleton instance of the Eclipse plugin.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @return the singleton instance.
-	 * @generated
-	 */
+     * @return the singleton instance.
+     * @generated
+     */
 	@Override
 	public ResourceLocator getPluginResourceLocator() {
-		return plugin;
-	}
+        return plugin;
+    }
 
 	/**
-	 * Returns the singleton instance of the Eclipse plugin. <!-- begin-user-doc
+     * Returns the singleton instance of the Eclipse plugin.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @return the singleton instance.
-	 * @generated
-	 */
+     * @return the singleton instance.
+     * @generated
+     */
 	public static Implementation getPlugin() {
-		return plugin;
-	}
+        return plugin;
+    }
 
 	/**
 	 * The actual implementation of the Eclipse <b>Plugin</b>. <!--
@@ -68,17 +70,17 @@ public final class DlimEditPlugin extends EMFPlugin {
 	 */
 	public static class Implementation extends EclipsePlugin {
 		/**
-		 * Creates an instance. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
+         * Creates an instance.
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
+         * @generated
+         */
 		public Implementation() {
-			super();
+            super();
 
-			// Remember the static instance.
-			//
-			plugin = this;
-		}
+            // Remember the static instance.
+            //
+            plugin = this;
+        }
 	}
 
 }

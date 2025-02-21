@@ -14,10 +14,9 @@ import tools.descartes.dlim.DlimPackage;
 import tools.descartes.dlim.UnivariateFunction;
 
 /**
- * This is the item provider adapter for a
- * {@link tools.descartes.dlim.UnivariateFunction} object. <!-- begin-user-doc
+ * This is the item provider adapter for a {@link tools.descartes.dlim.UnivariateFunction} object.
+ * <!-- begin-user-doc
  * --> <!-- end-user-doc -->
- * 
  * @generated
  */
 public class UnivariateFunctionItemProvider extends FunctionItemProvider {
@@ -28,8 +27,8 @@ public class UnivariateFunctionItemProvider extends FunctionItemProvider {
 	 * @generated
 	 */
 	public UnivariateFunctionItemProvider(AdapterFactory adapterFactory) {
-		super(adapterFactory);
-	}
+        super(adapterFactory);
+    }
 
 	/**
 	 * This returns the property descriptors for the adapted class. <!--
@@ -39,79 +38,71 @@ public class UnivariateFunctionItemProvider extends FunctionItemProvider {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (itemPropertyDescriptors == null) {
-			super.getPropertyDescriptors(object);
+        if (itemPropertyDescriptors == null) {
+            super.getPropertyDescriptors(object);
 
-		}
-		return itemPropertyDescriptors;
-	}
+        }
+        return itemPropertyDescriptors;
+    }
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to
-	 * deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand},
-	 * {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in
-	 * {@link #createCommand}. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+     * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+     * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
 	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(
 			Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures
-					.add(DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION);
-		}
-		return childrenFeatures;
-	}
+        if (childrenFeatures == null) {
+            super.getChildrenFeatures(object);
+            childrenFeatures.add(DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION);
+        }
+        return childrenFeatures;
+    }
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
 	@Override
 	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper
-		// feature to use for
-		// adding (see {@link AddCommand}) it as a child.
+        // Check the type of the specified child object and return the proper feature to use for
+        // adding (see {@link AddCommand}) it as a child.
 
-		return super.getChildFeature(object, child);
-	}
+        return super.getChildFeature(object, child);
+    }
 
 	/**
-	 * This returns the label text for the adapted class. <!-- begin-user-doc
+     * This returns the label text for the adapted class.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_UnivariateFunction_type");
-	}
+        return getString("_UI_UnivariateFunction_type");
+    }
 
 	/**
-	 * This handles model notifications by calling {@link #updateChildren} to
-	 * update any cached children and by creating a viewer notification, which
-	 * it passes to {@link #fireNotifyChanged}. <!-- begin-user-doc --> <!--
+     * This handles model notifications by calling {@link #updateChildren} to update any cached
+     * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+     * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void notifyChanged(Notification notification) {
-		updateChildren(notification);
+        updateChildren(notification);
 
-		switch (notification.getFeatureID(UnivariateFunction.class)) {
-		case DlimPackage.UNIVARIATE_FUNCTION__FUNCTION:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
-			return;
-		}
-		super.notifyChanged(notification);
-	}
+        switch (notification.getFeatureID(UnivariateFunction.class)) {
+            case DlimPackage.UNIVARIATE_FUNCTION__FUNCTION:
+                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+                return;
+        }
+        super.notifyChanged(notification);
+    }
 
 	/**
 	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s
@@ -123,72 +114,87 @@ public class UnivariateFunctionItemProvider extends FunctionItemProvider {
 	@Override
 	protected void collectNewChildDescriptors(
 			Collection<Object> newChildDescriptors, Object object) {
-		super.collectNewChildDescriptors(newChildDescriptors, object);
+        super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
-				DlimFactory.eINSTANCE.createSequence()));
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
+                 DlimFactory.eINSTANCE.createSequence()));
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
-				DlimFactory.eINSTANCE.createUniformNoise()));
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
+                 DlimFactory.eINSTANCE.createUniformNoise()));
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
-				DlimFactory.eINSTANCE.createNormalNoise()));
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
+                 DlimFactory.eINSTANCE.createNormalNoise()));
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
-				DlimFactory.eINSTANCE.createConstant()));
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
+                 DlimFactory.eINSTANCE.createConstant()));
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
-				DlimFactory.eINSTANCE.createSin()));
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
+                 DlimFactory.eINSTANCE.createSin()));
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
-				DlimFactory.eINSTANCE.createExponentialIncreaseAndDecline()));
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
+                 DlimFactory.eINSTANCE.createExponentialIncreaseAndDecline()));
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
-				DlimFactory.eINSTANCE
-						.createExponentialIncreaseLogarithmicDecline()));
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
+                 DlimFactory.eINSTANCE.createExponentialIncreaseLogarithmicDecline()));
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
-				DlimFactory.eINSTANCE.createLinearIncreaseAndDecline()));
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
+                 DlimFactory.eINSTANCE.createLinearIncreaseAndDecline()));
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
-				DlimFactory.eINSTANCE.createAbsoluteSin()));
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
+                 DlimFactory.eINSTANCE.createAbsoluteSin()));
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
-				DlimFactory.eINSTANCE.createLinearTrend()));
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
+                 DlimFactory.eINSTANCE.createLinearTrend()));
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
-				DlimFactory.eINSTANCE.createExponentialTrend()));
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
+                 DlimFactory.eINSTANCE.createExponentialTrend()));
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
-				DlimFactory.eINSTANCE.createLogarithmicTrend()));
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
+                 DlimFactory.eINSTANCE.createLogarithmicTrend()));
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
-				DlimFactory.eINSTANCE.createSinTrend()));
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
+                 DlimFactory.eINSTANCE.createSinTrend()));
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
-				DlimFactory.eINSTANCE.createArrivalRatesFromFile()));
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
+                 DlimFactory.eINSTANCE.createArrivalRatesFromFile()));
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
-				DlimFactory.eINSTANCE.createAbsoluteValueFunction()));
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
+                 DlimFactory.eINSTANCE.createAbsoluteValueFunction()));
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
-				DlimFactory.eINSTANCE.createPolynomial()));
-	}
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.UNIVARIATE_FUNCTION__FUNCTION,
+                 DlimFactory.eINSTANCE.createPolynomial()));
+    }
 
 }

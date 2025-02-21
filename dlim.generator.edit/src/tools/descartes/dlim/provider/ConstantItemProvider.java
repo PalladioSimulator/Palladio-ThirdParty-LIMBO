@@ -14,9 +14,8 @@ import tools.descartes.dlim.Constant;
 import tools.descartes.dlim.DlimPackage;
 
 /**
- * This is the item provider adapter for a {@link tools.descartes.dlim.Constant}
- * object. <!-- begin-user-doc --> <!-- end-user-doc -->
- * 
+ * This is the item provider adapter for a {@link tools.descartes.dlim.Constant} object.
+ * <!-- begin-user-doc --> <!-- end-user-doc -->
  * @generated
  */
 public class ConstantItemProvider extends SeasonalItemProvider {
@@ -27,8 +26,8 @@ public class ConstantItemProvider extends SeasonalItemProvider {
 	 * @generated
 	 */
 	public ConstantItemProvider(AdapterFactory adapterFactory) {
-		super(adapterFactory);
-	}
+        super(adapterFactory);
+    }
 
 	/**
 	 * This returns the property descriptors for the adapted class. <!--
@@ -38,13 +37,13 @@ public class ConstantItemProvider extends SeasonalItemProvider {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (itemPropertyDescriptors == null) {
-			super.getPropertyDescriptors(object);
+        if (itemPropertyDescriptors == null) {
+            super.getPropertyDescriptors(object);
 
-			addConstantPropertyDescriptor(object);
-		}
-		return itemPropertyDescriptors;
-	}
+            addConstantPropertyDescriptor(object);
+        }
+        return itemPropertyDescriptors;
+    }
 
 	/**
 	 * This adds a property descriptor for the Constant feature. <!--
@@ -53,60 +52,61 @@ public class ConstantItemProvider extends SeasonalItemProvider {
 	 * @generated
 	 */
 	protected void addConstantPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Constant_constant_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Constant_constant_feature", "_UI_Constant_type"),
-				DlimPackage.Literals.CONSTANT__CONSTANT, true, false, false,
-				ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
-	}
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Constant_constant_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Constant_constant_feature", "_UI_Constant_type"),
+                 DlimPackage.Literals.CONSTANT__CONSTANT,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+                 null,
+                 null));
+    }
 
 	/**
-	 * This returns Constant.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * This returns Constant.gif.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/Constant"));
-	}
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/Constant"));
+    }
 
 	/**
-	 * This returns the label text for the adapted class. <!-- begin-user-doc
+     * This returns the label text for the adapted class.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String getText(Object object) {
-		Constant constant = (Constant) object;
-		return getString("_UI_Constant_type") + " " + constant.getConstant();
-	}
+        Constant constant = (Constant)object;
+        return getString("_UI_Constant_type") + " " + constant.getConstant();
+    }
 
 	/**
-	 * This handles model notifications by calling {@link #updateChildren} to
-	 * update any cached children and by creating a viewer notification, which
-	 * it passes to {@link #fireNotifyChanged}. <!-- begin-user-doc --> <!--
+     * This handles model notifications by calling {@link #updateChildren} to update any cached
+     * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+     * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void notifyChanged(Notification notification) {
-		updateChildren(notification);
+        updateChildren(notification);
 
-		switch (notification.getFeatureID(Constant.class)) {
-		case DlimPackage.CONSTANT__CONSTANT:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
-			return;
-		}
-		super.notifyChanged(notification);
-	}
+        switch (notification.getFeatureID(Constant.class)) {
+            case DlimPackage.CONSTANT__CONSTANT:
+                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+                return;
+        }
+        super.notifyChanged(notification);
+    }
 
 	/**
 	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s
@@ -118,7 +118,7 @@ public class ConstantItemProvider extends SeasonalItemProvider {
 	@Override
 	protected void collectNewChildDescriptors(
 			Collection<Object> newChildDescriptors, Object object) {
-		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
+        super.collectNewChildDescriptors(newChildDescriptors, object);
+    }
 
 }

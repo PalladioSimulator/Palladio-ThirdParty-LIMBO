@@ -10,10 +10,9 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import tools.descartes.dlim.LinearTrend;
 
 /**
- * This is the item provider adapter for a
- * {@link tools.descartes.dlim.LinearTrend} object. <!-- begin-user-doc --> <!--
+ * This is the item provider adapter for a {@link tools.descartes.dlim.LinearTrend} object.
+ * <!-- begin-user-doc --> <!--
  * end-user-doc -->
- * 
  * @generated
  */
 public class LinearTrendItemProvider extends TrendItemProvider {
@@ -24,8 +23,8 @@ public class LinearTrendItemProvider extends TrendItemProvider {
 	 * @generated
 	 */
 	public LinearTrendItemProvider(AdapterFactory adapterFactory) {
-		super(adapterFactory);
-	}
+        super(adapterFactory);
+    }
 
 	/**
 	 * This returns the property descriptors for the adapted class. <!--
@@ -35,12 +34,12 @@ public class LinearTrendItemProvider extends TrendItemProvider {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (itemPropertyDescriptors == null) {
-			super.getPropertyDescriptors(object);
+        if (itemPropertyDescriptors == null) {
+            super.getPropertyDescriptors(object);
 
-		}
-		return itemPropertyDescriptors;
-	}
+        }
+        return itemPropertyDescriptors;
+    }
 
 	/**
 	 * This returns LinearTrend.gif. <!-- begin-user-doc --> <!-- end-user-doc
@@ -50,36 +49,33 @@ public class LinearTrendItemProvider extends TrendItemProvider {
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/LinearTrend"));
-	}
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/LinearTrend"));
+    }
 
 	/**
-	 * This returns the label text for the adapted class. <!-- begin-user-doc
+     * This returns the label text for the adapted class.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String getText(Object object) {
-		LinearTrend linearTrend = (LinearTrend) object;
-		return getString("_UI_LinearTrend_type") + " "
-				+ linearTrend.getFunctionOutputAtStart();
-	}
+        LinearTrend linearTrend = (LinearTrend)object;
+        return getString("_UI_LinearTrend_type") + " " + linearTrend.getFunctionOutputAtStart();
+    }
 
 	/**
-	 * This handles model notifications by calling {@link #updateChildren} to
-	 * update any cached children and by creating a viewer notification, which
-	 * it passes to {@link #fireNotifyChanged}. <!-- begin-user-doc --> <!--
+     * This handles model notifications by calling {@link #updateChildren} to update any cached
+     * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+     * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void notifyChanged(Notification notification) {
-		updateChildren(notification);
-		super.notifyChanged(notification);
-	}
+        updateChildren(notification);
+        super.notifyChanged(notification);
+    }
 
 	/**
 	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s
@@ -91,7 +87,7 @@ public class LinearTrendItemProvider extends TrendItemProvider {
 	@Override
 	protected void collectNewChildDescriptors(
 			Collection<Object> newChildDescriptors, Object object) {
-		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
+        super.collectNewChildDescriptors(newChildDescriptors, object);
+    }
 
 }
