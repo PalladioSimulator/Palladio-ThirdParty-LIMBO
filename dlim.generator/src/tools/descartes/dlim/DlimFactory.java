@@ -7,7 +7,6 @@ import org.eclipse.emf.ecore.EFactory;
 /**
  * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
  * create method for each non-abstract class of the model. <!-- end-user-doc -->
- * 
  * @see tools.descartes.dlim.DlimPackage
  * @generated
  */
@@ -23,31 +22,29 @@ public interface DlimFactory extends EFactory {
 			.init();
 
 	/**
-	 * Returns a new object of class '<em>Sequence</em>'. <!-- begin-user-doc
+     * Returns a new object of class '<em>Sequence</em>'.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '<em>Sequence</em>'.
-	 * @generated
-	 */
+     * @return a new object of class '<em>Sequence</em>'.
+     * @generated
+     */
 	Sequence createSequence();
 
 	/**
-	 * Returns a new object of class '<em>Combinator</em>'. <!-- begin-user-doc
+     * Returns a new object of class '<em>Combinator</em>'.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '<em>Combinator</em>'.
-	 * @generated
-	 */
+     * @return a new object of class '<em>Combinator</em>'.
+     * @generated
+     */
 	Combinator createCombinator();
 
 	/**
-	 * Returns a new object of class '<em>Time Dependent Function Container</em>
-	 * '. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '<em>Time Dependent Function Container</em>
-	 *         '.
-	 * @generated
-	 */
+     * Returns a new object of class '<em>Time Dependent Function Container</em>'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @return a new object of class '<em>Time Dependent Function Container</em>'.
+     * @generated
+     */
 	TimeDependentFunctionContainer createTimeDependentFunctionContainer();
 
 	/**
@@ -69,51 +66,46 @@ public interface DlimFactory extends EFactory {
 	NormalNoise createNormalNoise();
 
 	/**
-	 * Returns a new object of class '<em>Constant</em>'. <!-- begin-user-doc
+     * Returns a new object of class '<em>Constant</em>'.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '<em>Constant</em>'.
-	 * @generated
-	 */
+     * @return a new object of class '<em>Constant</em>'.
+     * @generated
+     */
 	Constant createConstant();
 
 	/**
-	 * Returns a new object of class '<em>Sin</em>'. <!-- begin-user-doc -->
+     * Returns a new object of class '<em>Sin</em>'.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '<em>Sin</em>'.
-	 * @generated
-	 */
+     * @return a new object of class '<em>Sin</em>'.
+     * @generated
+     */
 	Sin createSin();
 
 	/**
-	 * Returns a new object of class '<em>Exponential Increase And Decline</em>
-	 * '. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '<em>Exponential Increase And Decline</em>
-	 *         '.
-	 * @generated
-	 */
+     * Returns a new object of class '<em>Exponential Increase And Decline</em>'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @return a new object of class '<em>Exponential Increase And Decline</em>'.
+     * @generated
+     */
 	ExponentialIncreaseAndDecline createExponentialIncreaseAndDecline();
 
 	/**
-	 * Returns a new object of class '
-	 * <em>Exponential Increase Logarithmic Decline</em>'. <!-- begin-user-doc
+     * Returns a new object of class '<em>Exponential Increase Logarithmic Decline</em>'.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '
-	 *         <em>Exponential Increase Logarithmic Decline</em>'.
-	 * @generated
-	 */
+     * @return a new object of class '<em>Exponential Increase Logarithmic Decline</em>'.
+     * @generated
+     */
 	ExponentialIncreaseLogarithmicDecline createExponentialIncreaseLogarithmicDecline();
 
 	/**
-	 * Returns a new object of class '<em>Linear Increase And Decline</em>'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '<em>Linear Increase And Decline</em>'.
-	 * @generated
-	 */
+     * Returns a new object of class '<em>Linear Increase And Decline</em>'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @return a new object of class '<em>Linear Increase And Decline</em>'.
+     * @generated
+     */
 	LinearIncreaseAndDecline createLinearIncreaseAndDecline();
 
 	/**
@@ -153,12 +145,12 @@ public interface DlimFactory extends EFactory {
 	LogarithmicTrend createLogarithmicTrend();
 
 	/**
-	 * Returns a new object of class '<em>Sin Trend</em>'. <!-- begin-user-doc
+     * Returns a new object of class '<em>Sin Trend</em>'.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '<em>Sin Trend</em>'.
-	 * @generated
-	 */
+     * @return a new object of class '<em>Sin Trend</em>'.
+     * @generated
+     */
 	SinTrend createSinTrend();
 
 	/**
@@ -189,12 +181,12 @@ public interface DlimFactory extends EFactory {
 	AbsoluteValueFunction createAbsoluteValueFunction();
 
 	/**
-	 * Returns a new object of class '<em>Polynomial</em>'. <!-- begin-user-doc
+     * Returns a new object of class '<em>Polynomial</em>'.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '<em>Polynomial</em>'.
-	 * @generated
-	 */
+     * @return a new object of class '<em>Polynomial</em>'.
+     * @generated
+     */
 	Polynomial createPolynomial();
 
 	/**
@@ -207,12 +199,12 @@ public interface DlimFactory extends EFactory {
 	PolynomialFactor createPolynomialFactor();
 
 	/**
-	 * Returns the package supported by this factory. <!-- begin-user-doc -->
+     * Returns the package supported by this factory.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
-	 * @return the package supported by this factory.
-	 * @generated
-	 */
+     * @return the package supported by this factory.
+     * @generated
+     */
 	DlimPackage getDlimPackage();
 
 } // DlimFactory
