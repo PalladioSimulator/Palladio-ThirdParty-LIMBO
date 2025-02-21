@@ -16,9 +16,8 @@ import tools.descartes.dlim.DlimPackage;
 import tools.descartes.dlim.Sequence;
 
 /**
- * This is the item provider adapter for a {@link tools.descartes.dlim.Sequence}
- * object. <!-- begin-user-doc --> <!-- end-user-doc -->
- * 
+ * This is the item provider adapter for a {@link tools.descartes.dlim.Sequence} object.
+ * <!-- begin-user-doc --> <!-- end-user-doc -->
  * @generated
  */
 public class SequenceItemProvider extends FunctionItemProvider {
@@ -29,8 +28,8 @@ public class SequenceItemProvider extends FunctionItemProvider {
 	 * @generated
 	 */
 	public SequenceItemProvider(AdapterFactory adapterFactory) {
-		super(adapterFactory);
-	}
+        super(adapterFactory);
+    }
 
 	/**
 	 * This returns the property descriptors for the adapted class. <!--
@@ -40,33 +39,37 @@ public class SequenceItemProvider extends FunctionItemProvider {
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (itemPropertyDescriptors == null) {
-			super.getPropertyDescriptors(object);
+        if (itemPropertyDescriptors == null) {
+            super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
-			addTerminateAfterTimePropertyDescriptor(object);
-			addTerminateAfterLoopsPropertyDescriptor(object);
-		}
-		return itemPropertyDescriptors;
-	}
+            addNamePropertyDescriptor(object);
+            addTerminateAfterTimePropertyDescriptor(object);
+            addTerminateAfterLoopsPropertyDescriptor(object);
+        }
+        return itemPropertyDescriptors;
+    }
 
 	/**
-	 * This adds a property descriptor for the Name feature. <!-- begin-user-doc
+     * This adds a property descriptor for the Name feature.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	protected void addNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Sequence_name_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Sequence_name_feature", "_UI_Sequence_type"),
-				DlimPackage.Literals.SEQUENCE__NAME, true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
-	}
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Sequence_name_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Sequence_name_feature", "_UI_Sequence_type"),
+                 DlimPackage.Literals.SEQUENCE__NAME,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
 
 	/**
 	 * This adds a property descriptor for the Terminate After Time feature.
@@ -89,117 +92,108 @@ public class SequenceItemProvider extends FunctionItemProvider {
 	}
 
 	/**
-	 * This adds a property descriptor for the Terminate After Loops feature.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * This adds a property descriptor for the Terminate After Loops feature.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
 	protected void addTerminateAfterLoopsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Sequence_terminateAfterLoops_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Sequence_terminateAfterLoops_feature",
-						"_UI_Sequence_type"),
-				DlimPackage.Literals.SEQUENCE__TERMINATE_AFTER_LOOPS, true,
-				false, false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-				null, null));
-	}
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Sequence_terminateAfterLoops_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Sequence_terminateAfterLoops_feature", "_UI_Sequence_type"),
+                 DlimPackage.Literals.SEQUENCE__TERMINATE_AFTER_LOOPS,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+                 null,
+                 null));
+    }
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to
-	 * deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand},
-	 * {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in
-	 * {@link #createCommand}. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+     * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+     * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
 	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(
 			Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures
-					.add(DlimPackage.Literals.SEQUENCE__REFERENCE_CLOCK);
-			childrenFeatures
-					.add(DlimPackage.Literals.SEQUENCE__SEQUENCE_FUNCTION_CONTAINERS);
-		}
-		return childrenFeatures;
-	}
+        if (childrenFeatures == null) {
+            super.getChildrenFeatures(object);
+            childrenFeatures.add(DlimPackage.Literals.SEQUENCE__REFERENCE_CLOCK);
+            childrenFeatures.add(DlimPackage.Literals.SEQUENCE__SEQUENCE_FUNCTION_CONTAINERS);
+        }
+        return childrenFeatures;
+    }
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
 	@Override
 	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper
-		// feature to use for
-		// adding (see {@link AddCommand}) it as a child.
+        // Check the type of the specified child object and return the proper feature to use for
+        // adding (see {@link AddCommand}) it as a child.
 
-		return super.getChildFeature(object, child);
-	}
+        return super.getChildFeature(object, child);
+    }
 
 	/**
-	 * This returns Sequence.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * This returns Sequence.gif.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/Sequence"));
-	}
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/Sequence"));
+    }
 
 	/**
-	 * This returns the label text for the adapted class. <!-- begin-user-doc
+     * This returns the label text for the adapted class.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String getText(Object object) {
-		String label = ((Sequence) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Sequence_type")
-				: getString("_UI_Sequence_type") + " " + label;
-	}
+        String label = ((Sequence)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_Sequence_type") :
+            getString("_UI_Sequence_type") + " " + label;
+    }
 
 	/**
-	 * This handles model notifications by calling {@link #updateChildren} to
-	 * update any cached children and by creating a viewer notification, which
-	 * it passes to {@link #fireNotifyChanged}. <!-- begin-user-doc --> <!--
+     * This handles model notifications by calling {@link #updateChildren} to update any cached
+     * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+     * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void notifyChanged(Notification notification) {
-		updateChildren(notification);
+        updateChildren(notification);
 
-		switch (notification.getFeatureID(Sequence.class)) {
-		case DlimPackage.SEQUENCE__NAME:
-		case DlimPackage.SEQUENCE__TERMINATE_AFTER_TIME:
-		case DlimPackage.SEQUENCE__TERMINATE_AFTER_LOOPS:
-		case DlimPackage.SEQUENCE__FIRST_ITERATION_START:
-		case DlimPackage.SEQUENCE__FIRST_ITERATION_END:
-		case DlimPackage.SEQUENCE__LOOP_DURATION:
-		case DlimPackage.SEQUENCE__FINAL_DURATION:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
-			return;
-		case DlimPackage.SEQUENCE__REFERENCE_CLOCK:
-		case DlimPackage.SEQUENCE__SEQUENCE_FUNCTION_CONTAINERS:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
-			return;
-		}
-		super.notifyChanged(notification);
-	}
+        switch (notification.getFeatureID(Sequence.class)) {
+            case DlimPackage.SEQUENCE__NAME:
+            case DlimPackage.SEQUENCE__TERMINATE_AFTER_TIME:
+            case DlimPackage.SEQUENCE__TERMINATE_AFTER_LOOPS:
+            case DlimPackage.SEQUENCE__FIRST_ITERATION_START:
+            case DlimPackage.SEQUENCE__FIRST_ITERATION_END:
+            case DlimPackage.SEQUENCE__LOOP_DURATION:
+            case DlimPackage.SEQUENCE__FINAL_DURATION:
+                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+                return;
+            case DlimPackage.SEQUENCE__REFERENCE_CLOCK:
+            case DlimPackage.SEQUENCE__SEQUENCE_FUNCTION_CONTAINERS:
+                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+                return;
+        }
+        super.notifyChanged(notification);
+    }
 
 	/**
 	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s
@@ -211,15 +205,17 @@ public class SequenceItemProvider extends FunctionItemProvider {
 	@Override
 	protected void collectNewChildDescriptors(
 			Collection<Object> newChildDescriptors, Object object) {
-		super.collectNewChildDescriptors(newChildDescriptors, object);
+        super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.SEQUENCE__REFERENCE_CLOCK,
-				DlimFactory.eINSTANCE.createReferenceClockObject()));
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.SEQUENCE__REFERENCE_CLOCK,
+                 DlimFactory.eINSTANCE.createReferenceClockObject()));
 
-		newChildDescriptors.add(createChildParameter(
-				DlimPackage.Literals.SEQUENCE__SEQUENCE_FUNCTION_CONTAINERS,
-				DlimFactory.eINSTANCE.createTimeDependentFunctionContainer()));
-	}
+        newChildDescriptors.add
+            (createChildParameter
+                (DlimPackage.Literals.SEQUENCE__SEQUENCE_FUNCTION_CONTAINERS,
+                 DlimFactory.eINSTANCE.createTimeDependentFunctionContainer()));
+    }
 
 }

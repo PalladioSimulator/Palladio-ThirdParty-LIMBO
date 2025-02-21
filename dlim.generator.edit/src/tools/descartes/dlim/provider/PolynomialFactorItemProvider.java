@@ -24,10 +24,9 @@ import tools.descartes.dlim.DlimPackage;
 import tools.descartes.dlim.PolynomialFactor;
 
 /**
- * This is the item provider adapter for a
- * {@link tools.descartes.dlim.PolynomialFactor} object. <!-- begin-user-doc -->
+ * This is the item provider adapter for a {@link tools.descartes.dlim.PolynomialFactor} object.
+ * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
- * 
  * @generated
  */
 public class PolynomialFactorItemProvider extends ItemProviderAdapter implements
@@ -40,8 +39,8 @@ public class PolynomialFactorItemProvider extends ItemProviderAdapter implements
 	 * @generated
 	 */
 	public PolynomialFactorItemProvider(AdapterFactory adapterFactory) {
-		super(adapterFactory);
-	}
+        super(adapterFactory);
+    }
 
 	/**
 	 * This returns the property descriptors for the adapted class. <!--
@@ -51,14 +50,14 @@ public class PolynomialFactorItemProvider extends ItemProviderAdapter implements
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (itemPropertyDescriptors == null) {
-			super.getPropertyDescriptors(object);
+        if (itemPropertyDescriptors == null) {
+            super.getPropertyDescriptors(object);
 
-			addFactorPropertyDescriptor(object);
-			addOffsetPropertyDescriptor(object);
-		}
-		return itemPropertyDescriptors;
-	}
+            addFactorPropertyDescriptor(object);
+            addOffsetPropertyDescriptor(object);
+        }
+        return itemPropertyDescriptors;
+    }
 
 	/**
 	 * This adds a property descriptor for the Factor feature. <!--
@@ -67,17 +66,20 @@ public class PolynomialFactorItemProvider extends ItemProviderAdapter implements
 	 * @generated
 	 */
 	protected void addFactorPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_PolynomialFactor_factor_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_PolynomialFactor_factor_feature",
-						"_UI_PolynomialFactor_type"),
-				DlimPackage.Literals.POLYNOMIAL_FACTOR__FACTOR, true, false,
-				false, ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
-	}
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_PolynomialFactor_factor_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_PolynomialFactor_factor_feature", "_UI_PolynomialFactor_type"),
+                 DlimPackage.Literals.POLYNOMIAL_FACTOR__FACTOR,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+                 null,
+                 null));
+    }
 
 	/**
 	 * This adds a property descriptor for the Offset feature. <!--
@@ -86,42 +88,43 @@ public class PolynomialFactorItemProvider extends ItemProviderAdapter implements
 	 * @generated
 	 */
 	protected void addOffsetPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_PolynomialFactor_offset_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_PolynomialFactor_offset_feature",
-						"_UI_PolynomialFactor_type"),
-				DlimPackage.Literals.POLYNOMIAL_FACTOR__OFFSET, true, false,
-				false, ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
-	}
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_PolynomialFactor_offset_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_PolynomialFactor_offset_feature", "_UI_PolynomialFactor_type"),
+                 DlimPackage.Literals.POLYNOMIAL_FACTOR__OFFSET,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+                 null,
+                 null));
+    }
 
 	/**
-	 * This returns PolynomialFactor.gif. <!-- begin-user-doc --> <!--
+     * This returns PolynomialFactor.gif.
+     * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/PolynomialFactor"));
-	}
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/PolynomialFactor"));
+    }
 
 	/**
-	 * This returns the label text for the adapted class. <!-- begin-user-doc
+     * This returns the label text for the adapted class.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String getText(Object object) {
-		PolynomialFactor polynomialFactor = (PolynomialFactor) object;
-		return getString("_UI_PolynomialFactor_type") + " "
-				+ polynomialFactor.getFactor();
-	}
+        PolynomialFactor polynomialFactor = (PolynomialFactor)object;
+        return getString("_UI_PolynomialFactor_type") + " " + polynomialFactor.getFactor();
+    }
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to
@@ -159,8 +162,8 @@ public class PolynomialFactorItemProvider extends ItemProviderAdapter implements
 	@Override
 	protected void collectNewChildDescriptors(
 			Collection<Object> newChildDescriptors, Object object) {
-		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
+        super.collectNewChildDescriptors(newChildDescriptors, object);
+    }
 
 	/**
 	 * Return the resource locator for this item provider's resources. <!--
@@ -170,7 +173,7 @@ public class PolynomialFactorItemProvider extends ItemProviderAdapter implements
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return DlimEditPlugin.INSTANCE;
-	}
+        return DlimEditPlugin.INSTANCE;
+    }
 
 }
