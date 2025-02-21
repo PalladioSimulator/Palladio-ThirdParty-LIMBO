@@ -13,9 +13,9 @@ import tools.descartes.dlim.presentation.custom.DLIMSelectionListener;
 import tools.descartes.dlim.presentation.custom.DLIMWorkbenchPartListener;
 
 /**
- * This is the central singleton for the Dlim editor plugin. <!-- begin-user-doc
+ * This is the central singleton for the Dlim editor plugin.
+ * <!-- begin-user-doc
  * --> <!-- end-user-doc -->
- *
  * @generated
  */
 public final class DlimEditorPlugin extends EMFPlugin {
@@ -43,36 +43,38 @@ public final class DlimEditorPlugin extends EMFPlugin {
 	private static Implementation plugin;
 
 	/**
-	 * Create the instance. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
+     * Create the instance.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
 	public DlimEditorPlugin() {
-		super(new ResourceLocator[] {});
-	}
+        super
+            (new ResourceLocator [] {
+            });
+    }
 
 	/**
-	 * Returns the singleton instance of the Eclipse plugin. <!-- begin-user-doc
+     * Returns the singleton instance of the Eclipse plugin.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 *
-	 * @return the singleton instance.
-	 * @generated
-	 */
+     * @return the singleton instance.
+     * @generated
+     */
 	@Override
 	public ResourceLocator getPluginResourceLocator() {
-		return plugin;
-	}
+        return plugin;
+    }
 
 	/**
-	 * Returns the singleton instance of the Eclipse plugin. <!-- begin-user-doc
+     * Returns the singleton instance of the Eclipse plugin.
+     * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 *
-	 * @return the singleton instance.
-	 * @generated
-	 */
+     * @return the singleton instance.
+     * @generated
+     */
 	public static Implementation getPlugin() {
-		return plugin;
-	}
+        return plugin;
+    }
 
 	/**
 	 * The actual implementation of the Eclipse <b>Plugin</b>. <!--
