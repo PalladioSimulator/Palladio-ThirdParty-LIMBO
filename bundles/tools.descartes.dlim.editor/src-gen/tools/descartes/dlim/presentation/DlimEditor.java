@@ -577,7 +577,7 @@ public class DlimEditor extends MultiPageEditorPart implements
             BasicDiagnostic diagnostic =
                 new BasicDiagnostic
                     (Diagnostic.OK,
-                     "tools.descartes.dlim.generator.editor",
+                     "tools.descartes.dlim.editor",
                      0,
                      null,
                      new Object [] { editingDomain.getResourceSet() });
@@ -938,7 +938,7 @@ public class DlimEditor extends MultiPageEditorPart implements
             BasicDiagnostic basicDiagnostic =
                 new BasicDiagnostic
                     (hasErrors ? Diagnostic.ERROR : Diagnostic.WARNING,
-                     "tools.descartes.dlim.generator.editor",
+                     "tools.descartes.dlim.editor",
                      0,
                      getString("_UI_CreateModelError_message", resource.getURI()),
                      new Object [] { exception == null ? (Object)resource : exception });
@@ -949,7 +949,7 @@ public class DlimEditor extends MultiPageEditorPart implements
             return
                 new BasicDiagnostic
                     (Diagnostic.ERROR,
-                     "tools.descartes.dlim.generator.editor",
+                     "tools.descartes.dlim.editor",
                      0,
                      getString("_UI_CreateModelError_message", resource.getURI()),
                      new Object[] { exception });
