@@ -2,6 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: tools.descartes.dlim.generator.editor;singleton:=true
+Automatic-Module-Name: tools.descartes.dlim.generator.editor
 Bundle-Version: 0.15.9.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: tools.descartes.dlim.presentation.DlimEditorPlugin$Implementation
