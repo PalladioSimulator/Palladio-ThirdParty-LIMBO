@@ -1,5 +1,7 @@
-/target/
+bin/
+target/
 *.class
+.polyglot.*
 
 # Package Files #
 *.war
