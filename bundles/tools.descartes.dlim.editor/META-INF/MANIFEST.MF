@@ -9,7 +9,8 @@ Bundle-Activator: tools.descartes.dlim.presentation.DlimEditorPlugin$Implementat
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: tools.descartes.dlim.presentation
+Export-Package: tools.descartes.dlim.generator.editor.utils,
+ tools.descartes.dlim.presentation
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
  tools.descartes.dlim.edit;visibility:=reexport,

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: tools.descartes.power.sert.regressor
+Bundle-Name: tools.descartes.dlim.extractor
 Bundle-SymbolicName: tools.descartes.dlim.extractor;singleton:=true
 Bundle-Version: 0.15.7.qualifier
 Bundle-Activator: tools.descartes.dlim.extractor.Activator
@@ -8,7 +8,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  tools.descartes.dlim;bundle-version="0.16.1",
  tools.descartes.dlim.generator;bundle-version="0.13.12",
- tools.descartes.dlim.generator.editor
+ tools.descartes.dlim.editor
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/commons-math3-3.2.jar,
