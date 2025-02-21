@@ -3,11 +3,15 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: tools.descartes.dlim;singleton:=true
 Automatic-Module-Name: tools.descartes.dlim
-Bundle-Version: 0.1.0.qualifier
+Bundle-Version: 0.16.1.qualifier
+Export-Package: tools.descartes.dlim,
+ tools.descartes.dlim.generator,
+ tools.descartes.dlim.impl,
+ tools.descartes.dlim.util
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy

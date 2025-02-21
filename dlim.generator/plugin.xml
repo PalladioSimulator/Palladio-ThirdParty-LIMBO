@@ -8,12 +8,5 @@
    <extension-point id="tools_descartes_dlim_generator_exporters" name="Exporters" schema="schema/tools_descartes_dlim_generator_exporters.exsd"/>
    <extension-point id="tools_descartes_dlim_generator_extractors" name="Extractors" schema="schema/tools_descartes_dlim_generator_extractors.exsd"/>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated dlim -->
-      <package
-            uri="http://descartes.tools/dlim/0.1"
-            class="tools.descartes.dlim.DlimPackage"
-            genModel="src/tools/descartes/dlim/model/dlim.genmodel"/>
-   </extension>
 
 </plugin>
