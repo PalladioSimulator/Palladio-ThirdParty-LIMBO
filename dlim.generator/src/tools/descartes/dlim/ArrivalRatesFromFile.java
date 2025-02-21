@@ -8,11 +8,10 @@ package tools.descartes.dlim;
  *
  * <p>
  * The following features are supported:
- * <ul>
- * <li>{@link tools.descartes.dlim.ArrivalRatesFromFile#getFilePath <em>File
- * Path</em>}</li>
- * </ul>
  * </p>
+ * <ul>
+ *   <li>{@link tools.descartes.dlim.ArrivalRatesFromFile#getFilePath <em>File Path</em>}</li>
+ * </ul>
  *
  * @see tools.descartes.dlim.DlimPackage#getArrivalRatesFromFile()
  * @model
@@ -51,19 +50,17 @@ public interface ArrivalRatesFromFile extends Function {
 	void setFilePath(String value);
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @model
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @model
+     * @generated
+     */
 	double getArrivalRate(double x);
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @model
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @model
+     * @generated
+     */
 	void readFile();
 
 } // ArrivalRatesFromFile

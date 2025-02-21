@@ -8,10 +8,10 @@ package tools.descartes.dlim;
  *
  * <p>
  * The following features are supported:
- * <ul>
- * <li>{@link tools.descartes.dlim.Constant#getConstant <em>Constant</em>}</li>
- * </ul>
  * </p>
+ * <ul>
+ *   <li>{@link tools.descartes.dlim.Constant#getConstant <em>Constant</em>}</li>
+ * </ul>
  *
  * @see tools.descartes.dlim.DlimPackage#getConstant()
  * @model

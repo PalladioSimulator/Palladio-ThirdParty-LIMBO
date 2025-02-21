@@ -10,30 +10,26 @@ import tools.descartes.dlim.DlimPackage;
 /**
  * <!-- begin-user-doc --> An implementation of the model object '
  * <em><b>Absolute Value Function</b></em>'. <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
 public class AbsoluteValueFunctionImpl extends UnivariateFunctionImpl implements
 		AbsoluteValueFunction {
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
 	protected AbsoluteValueFunctionImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return DlimPackage.Literals.ABSOLUTE_VALUE_FUNCTION;
-	}
+        return DlimPackage.Literals.ABSOLUTE_VALUE_FUNCTION;
+    }
 
 } // AbsoluteValueFunctionImpl

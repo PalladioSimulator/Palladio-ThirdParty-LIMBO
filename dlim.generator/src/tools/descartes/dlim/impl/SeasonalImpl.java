@@ -10,29 +10,25 @@ import tools.descartes.dlim.Seasonal;
 /**
  * <!-- begin-user-doc --> An implementation of the model object '
  * <em><b>Seasonal</b></em>'. <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
 public abstract class SeasonalImpl extends FunctionImpl implements Seasonal {
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
 	protected SeasonalImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return DlimPackage.Literals.SEASONAL;
-	}
+        return DlimPackage.Literals.SEASONAL;
+    }
 
 } // SeasonalImpl

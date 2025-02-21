@@ -22,33 +22,30 @@ package tools.descartes.dlim;
  */
 public interface ExponentialIncreaseLogarithmicDecline extends Burst {
 	/**
-	 * Returns the value of the '<em><b>Logarithmic Order</b></em>' attribute.
-	 * The default value is <code>"4.0"</code>. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Logarithmic Order</b></em>' attribute.
+     * The default value is <code>"4.0"</code>.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Logarithmic Order</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Logarithmic Order</em>' attribute.
-	 * @see #setLogarithmicOrder(double)
-	 * @see tools.descartes.dlim.DlimPackage#getExponentialIncreaseLogarithmicDecline_LogarithmicOrder()
-	 * @model default="4.0"
-	 * @generated
-	 */
+     * @return the value of the '<em>Logarithmic Order</em>' attribute.
+     * @see #setLogarithmicOrder(double)
+     * @see tools.descartes.dlim.DlimPackage#getExponentialIncreaseLogarithmicDecline_LogarithmicOrder()
+     * @model default="4.0"
+     * @generated
+     */
 	double getLogarithmicOrder();
 
 	/**
-	 * Sets the value of the '
-	 * {@link tools.descartes.dlim.ExponentialIncreaseLogarithmicDecline#getLogarithmicOrder
-	 * <em>Logarithmic Order</em>}' attribute. <!-- begin-user-doc --> <!--
+     * Sets the value of the '{@link tools.descartes.dlim.ExponentialIncreaseLogarithmicDecline#getLogarithmicOrder <em>Logarithmic Order</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Logarithmic Order</em>' attribute.
-	 * @see #getLogarithmicOrder()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>Logarithmic Order</em>' attribute.
+     * @see #getLogarithmicOrder()
+     * @generated
+     */
 	void setLogarithmicOrder(double value);
 
 } // ExponentialIncreaseLogarithmicDecline

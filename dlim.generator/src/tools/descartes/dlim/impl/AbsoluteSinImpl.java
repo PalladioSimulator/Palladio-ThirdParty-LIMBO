@@ -10,29 +10,25 @@ import tools.descartes.dlim.DlimPackage;
 /**
  * <!-- begin-user-doc --> An implementation of the model object '
  * <em><b>Absolute Sin</b></em>'. <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
 public class AbsoluteSinImpl extends SinImpl implements AbsoluteSin {
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
 	protected AbsoluteSinImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return DlimPackage.Literals.ABSOLUTE_SIN;
-	}
+        return DlimPackage.Literals.ABSOLUTE_SIN;
+    }
 
 } // AbsoluteSinImpl
