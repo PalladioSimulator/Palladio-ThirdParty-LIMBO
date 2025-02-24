@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="tools.descartes.dlim.feature">
+      <category name="tools.descartes.dlim.category"/>
+   </feature>
+   <feature id="tools.descartes.dlim.feature.source">
+      <category name="tools.descartes.dlim.source.category"/>
+   </feature>
+   <feature id="tools.descartes.dlim.generator.feature">
+      <category name="tools.descartes.dlim.category"/>
+   </feature>
+   <feature id="tools.descartes.dlim.generator.feature.source">
+      <category name="tools.descartes.dlim.source.category"/>
+   </feature>
+   <category-def name="tools.descartes.dlim.category" label="LIMBO"/>
+   <category-def name="tools.descartes.dlim.source.category" label="LIMBO sources"/>
+</site>
