@@ -19,7 +19,6 @@ import org.eclipse.core.runtime.Status;
 
 import tools.descartes.dlim.Combinator;
 import tools.descartes.dlim.DlimFactory;
-import tools.descartes.dlim.DlimGeneratorPlugin;
 import tools.descartes.dlim.DlimPackage;
 import tools.descartes.dlim.NormalNoise;
 import tools.descartes.dlim.Sequence;
@@ -437,7 +436,7 @@ public final class ModelExtractor {
                     .add(new ArrivalRateTuple(t.getTimeStamp(), t.getArrivalRate()));
             }
         } catch (IOException e) {
-            DlimGeneratorPlugin.INSTANCE
+            Activator.getInstance()
                 .log(new Status(Status.ERROR, Activator.PLUGIN_ID, "Arrival Rate File does not exist.", e));
         }
 

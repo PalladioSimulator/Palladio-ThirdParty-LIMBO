@@ -25,8 +25,6 @@ import com.timeseries.TimeSeries;
 import com.timeseries.TimeSeriesPoint;
 import com.util.EuclideanDistance;
 
-import tools.descartes.dlim.DlimGeneratorPlugin;
-
 /**
  * Calculates the difference between a DLIM and an arrival rate .txt file.
  *
@@ -120,7 +118,7 @@ public class DiffAnalyzer {
             diffWriter.close();
 
             if (diffList.size() == 0) {
-                DlimGeneratorPlugin.INSTANCE
+                Activator.getInstance()
                     .log(new Status(Status.WARNING, Activator.PLUGIN_ID, "file has an incorrect format. Only files "
                             + "with the correct Arrival Rate format can be read."));
             }
@@ -157,10 +155,10 @@ public class DiffAnalyzer {
             return statisticalValues;
 
         } catch (FileNotFoundException e) {
-            DlimGeneratorPlugin.INSTANCE
+            Activator.getInstance()
                 .log(new Status(Status.INFO, Activator.PLUGIN_ID, "Output Diff File not found.", e));
         } catch (UnsupportedEncodingException e) {
-            DlimGeneratorPlugin.INSTANCE
+            Activator.getInstance()
                 .log(new Status(Status.INFO, Activator.PLUGIN_ID, "Diff encoding unsupported.", e));
         } catch (IndexOutOfBoundsException e) {
             new Status(Status.INFO, Activator.PLUGIN_ID, "Could not Calculate Difference. Wrong file Type?");

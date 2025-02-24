@@ -13,7 +13,6 @@ import org.eclipse.emf.ecore.EClass;
 import tools.descartes.dlim.Combinator;
 import tools.descartes.dlim.Constant;
 import tools.descartes.dlim.DlimFactory;
-import tools.descartes.dlim.DlimGeneratorPlugin;
 import tools.descartes.dlim.DlimPackage;
 import tools.descartes.dlim.Function;
 import tools.descartes.dlim.Operator;
@@ -230,7 +229,7 @@ public final class BasicTrendExtractionUtilities {
         try {
             startValue = Calibrator.calibrateTrendStartValue(value, trend, evaluator);
         } catch (CalibrationException e) {
-            DlimGeneratorPlugin.INSTANCE
+            Activator.getInstance()
                 .log(new Status(Status.ERROR, Activator.PLUGIN_ID, "CalibrationException:" + e.getMessage(), e));
         }
         return startValue;
@@ -245,7 +244,7 @@ public final class BasicTrendExtractionUtilities {
         try {
             endValue = Calibrator.calibrateTrendEndValue(value, trend, evaluator);
         } catch (CalibrationException e) {
-            DlimGeneratorPlugin.INSTANCE
+            Activator.getInstance()
                 .log(new Status(Status.ERROR, Activator.PLUGIN_ID, "CalibrationException:" + e.getMessage(), e));
         }
         return endValue;

@@ -15,7 +15,6 @@ import org.eclipse.emf.ecore.EClass;
 import tools.descartes.dlim.Burst;
 import tools.descartes.dlim.Combinator;
 import tools.descartes.dlim.DlimFactory;
-import tools.descartes.dlim.DlimGeneratorPlugin;
 import tools.descartes.dlim.DlimPackage;
 import tools.descartes.dlim.Operator;
 import tools.descartes.dlim.Sequence;
@@ -193,7 +192,7 @@ public final class BasicBurstExtractionUtilities {
         try {
             endValue = Calibrator.calibrateBurstPeakValue(value, burst, evaluator);
         } catch (CalibrationException e) {
-            DlimGeneratorPlugin.INSTANCE
+            Activator.getInstance()
                 .log(new Status(Status.ERROR, Activator.PLUGIN_ID, "CalibrationException:" + e.getMessage(), e));
         }
         return endValue;

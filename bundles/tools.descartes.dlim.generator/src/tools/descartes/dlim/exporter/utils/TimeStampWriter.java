@@ -15,7 +15,6 @@ import java.util.List;
 
 import org.eclipse.core.runtime.Status;
 
-import tools.descartes.dlim.DlimGeneratorPlugin;
 import tools.descartes.dlim.generator.Activator;
 import tools.descartes.dlim.generator.ArrivalRateTuple;
 import tools.descartes.dlim.util.MathUtil;
@@ -136,11 +135,12 @@ public abstract class TimeStampWriter {
             }
             timeStampWriter.close();
         } catch (FileNotFoundException e) {
-            DlimGeneratorPlugin.INSTANCE
+            Activator.getInstance()
                 .log(new Status(Status.INFO, Activator.PLUGIN_ID, "FileNotFound, Could not write time stamps.", e));
         } catch (UnsupportedEncodingException e) {
-            DlimGeneratorPlugin.INSTANCE.log(new Status(Status.INFO, Activator.PLUGIN_ID,
-                    "UnsupportedEncoding, Could not write time stamps.", e));
+            Activator.getInstance()
+                .log(new Status(Status.INFO, Activator.PLUGIN_ID, "UnsupportedEncoding, Could not write time stamps.",
+                        e));
         }
     }
 

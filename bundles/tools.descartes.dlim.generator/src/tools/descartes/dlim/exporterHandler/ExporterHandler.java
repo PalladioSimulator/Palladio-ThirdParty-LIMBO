@@ -18,7 +18,6 @@ import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.di.annotations.Execute;
 
-import tools.descartes.dlim.DlimGeneratorPlugin;
 import tools.descartes.dlim.Sequence;
 import tools.descartes.dlim.exporter.IDlimExporter;
 import tools.descartes.dlim.generator.Activator;
@@ -74,7 +73,8 @@ public final class ExporterHandler {
                 }
             }
         } catch (CoreException ex) {
-            DlimGeneratorPlugin.INSTANCE.log(new Status(Status.INFO, Activator.PLUGIN_ID, ex.getMessage(), ex));
+            Activator.getInstance()
+                .log(new Status(Status.INFO, Activator.PLUGIN_ID, ex.getMessage(), ex));
         }
     }
 
@@ -111,7 +111,7 @@ public final class ExporterHandler {
 
             @Override
             public void handleException(Throwable e) {
-                DlimGeneratorPlugin.INSTANCE
+                Activator.getInstance()
                     .log(new Status(Status.INFO, Activator.PLUGIN_ID, "Exception in client", e));
             }
 

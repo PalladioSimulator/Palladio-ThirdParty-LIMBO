@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 
-import tools.descartes.dlim.DlimGeneratorPlugin;
 import tools.descartes.dlim.generator.Activator;
 
 /**
@@ -89,7 +88,7 @@ public final class RequestTimeSeriesReader {
             br.close();
             arrRateWriter.close();
         } catch (IOException e) {
-            DlimGeneratorPlugin.INSTANCE
+            Activator.getInstance()
                 .log(new Status(Status.INFO, Activator.PLUGIN_ID, "Could not write arrival rate file", e));
         }
 
@@ -132,7 +131,7 @@ public final class RequestTimeSeriesReader {
             writeArrivalRatesFromTimeStamps(timeStampList, outputDir, fileName);
 
         } catch (IOException e) {
-            DlimGeneratorPlugin.INSTANCE
+            Activator.getInstance()
                 .log(new Status(Status.WARNING, Activator.PLUGIN_ID, "Could not write arrival rate file", e));
         }
     }

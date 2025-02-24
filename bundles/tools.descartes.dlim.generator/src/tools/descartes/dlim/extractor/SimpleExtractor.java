@@ -11,7 +11,6 @@ import java.util.List;
 
 import org.eclipse.core.runtime.Status;
 
-import tools.descartes.dlim.DlimGeneratorPlugin;
 import tools.descartes.dlim.Sequence;
 import tools.descartes.dlim.assistant.CalibrationException;
 import tools.descartes.dlim.generator.Activator;
@@ -35,8 +34,9 @@ public class SimpleExtractor implements IDlimExtractor {
             ModelExtractor.extractArrivalRateFileIntoSequenceBinarySplits(root, readArrivalRates, 24, 2, "SinTrend",
                     "SinTrend", "MULT", false);
         } catch (CalibrationException e) {
-            DlimGeneratorPlugin.INSTANCE.log(new Status(Status.ERROR, Activator.PLUGIN_ID,
-                    "Extration Parameter Exception: " + e.getMessage(), e));
+            Activator.getInstance()
+                .log(new Status(Status.ERROR, Activator.PLUGIN_ID, "Extration Parameter Exception: " + e.getMessage(),
+                        e));
         }
 
     }
