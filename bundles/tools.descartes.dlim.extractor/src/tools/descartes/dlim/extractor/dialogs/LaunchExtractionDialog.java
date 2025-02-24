@@ -49,435 +49,437 @@ import tools.descartes.dlim.generator.editor.utils.ProjectManager;
  */
 public class LaunchExtractionDialog extends TitleAreaDialog {
 
-	/**
-	 * ID of Eclipse Preference for lasts used trace parameters.
-	 */
-	private static final String SEASONAL_PERIOD_ID =
-			"tools.descartes.dlim.extractor.LaunchExtractionDialog.SEASONAL_PERIOD_ID";
-	private static final String TREND_LENGTH_ID =
-			"tools.descartes.dlim.extractor.LaunchExtractionDialog.TREND_LENGTH_ID";
-	private static final String TREND_SHAPE_ID =
-			"tools.descartes.dlim.extractor.LaunchExtractionDialog.TREND_SHAPE_ID";
-	private static final String SEASONAL_SHAPE_ID =
-			"tools.descartes.dlim.extractor.LaunchExtractionDialog.SEASONAL_SHAPE_ID";
-	private static final String OPERATOR_LITERAL_ID =
-			"tools.descartes.dlim.extractor.LaunchExtractionDialog.OPERATOR_LITERAL_ID";
-	private static final String EXTRACT_NOISE_ID =
-			"tools.descartes.dlim.extractor.LaunchExtractionDialog.EXTRACT_NOISE_ID";
-	
-	private Text seasonalPeriodText;
-	private Text seasonalsPerTrendText;
+    /**
+     * ID of Eclipse Preference for lasts used trace parameters.
+     */
+    private static final String SEASONAL_PERIOD_ID = "tools.descartes.dlim.extractor.LaunchExtractionDialog.SEASONAL_PERIOD_ID";
+    private static final String TREND_LENGTH_ID = "tools.descartes.dlim.extractor.LaunchExtractionDialog.TREND_LENGTH_ID";
+    private static final String TREND_SHAPE_ID = "tools.descartes.dlim.extractor.LaunchExtractionDialog.TREND_SHAPE_ID";
+    private static final String SEASONAL_SHAPE_ID = "tools.descartes.dlim.extractor.LaunchExtractionDialog.SEASONAL_SHAPE_ID";
+    private static final String OPERATOR_LITERAL_ID = "tools.descartes.dlim.extractor.LaunchExtractionDialog.OPERATOR_LITERAL_ID";
+    private static final String EXTRACT_NOISE_ID = "tools.descartes.dlim.extractor.LaunchExtractionDialog.EXTRACT_NOISE_ID";
 
-	private Button extractNoiseButton;
-	private Button autocorrelationButton;
+    private Text seasonalPeriodText;
+    private Text seasonalsPerTrendText;
 
-	private Combo seasonalShapeCombo;
-	private Combo trendShapeCombo;
-	private Combo operatorCombo;
+    private Button extractNoiseButton;
+    private Button autocorrelationButton;
 
-	private double seasonalPeriod = 24.0;
-	private int seasonalsPerTrend = 7;
-	private String seasonalShape = "SinTrend";
-	private String trendShape = "SinTrend";
-	private String operatorLiteral = "MULT";
-	private boolean extractNoise = false;
-	private boolean canceled = false;
+    private Combo seasonalShapeCombo;
+    private Combo trendShapeCombo;
+    private Combo operatorCombo;
 
-	// For model extraction
-	private Sequence rootSequence;
-	private List<ArrivalRateTuple> readArrivalRates;
+    private double seasonalPeriod = 24.0;
+    private int seasonalsPerTrend = 7;
+    private String seasonalShape = "SinTrend";
+    private String trendShape = "SinTrend";
+    private String operatorLiteral = "MULT";
+    private boolean extractNoise = false;
+    private boolean canceled = false;
 
-	/**
-	 * Creates a new dialog.
-	 *
-	 * @param parentShell the parent shell
-	 * @param rootSequence the root sequence
-	 * @param readArrivalRates the read arrival rates
-	 */
-	public LaunchExtractionDialog(Shell parentShell, Sequence rootSequence,
-			List<ArrivalRateTuple> readArrivalRates) {
-		super(parentShell);
-		this.rootSequence = rootSequence;
-		this.readArrivalRates = readArrivalRates;
-	}
+    // For model extraction
+    private Sequence rootSequence;
+    private List<ArrivalRateTuple> readArrivalRates;
 
-	/**
-	 * Set titles.
-	 */
-	public void create() {
-		super.create();
-		setTitle("Extract Sequence from Arrival Rate File");
-	}
+    /**
+     * Creates a new dialog.
+     *
+     * @param parentShell
+     *            the parent shell
+     * @param rootSequence
+     *            the root sequence
+     * @param readArrivalRates
+     *            the read arrival rates
+     */
+    public LaunchExtractionDialog(Shell parentShell, Sequence rootSequence, List<ArrivalRateTuple> readArrivalRates) {
+        super(parentShell);
+        this.rootSequence = rootSequence;
+        this.readArrivalRates = readArrivalRates;
+    }
 
-	/**
-	 * Create GUI elements.
-	 *
-	 * @param parent the parent
-	 * @return the control
-	 */
-	@Override
-	protected Control createDialogArea(Composite parent) {
-		Composite dialogContainer = (Composite) super.createDialogArea(parent);
-		Composite columnContainer = new Composite(dialogContainer, SWT.NONE);
-		columnContainer.setLayout(new FillLayout(SWT.VERTICAL));
-		Composite gridComposite = new Composite(columnContainer, SWT.NONE);
-		GridLayout gridLayout = new GridLayout(5, false);
-		gridLayout.marginWidth = 5;
-		gridLayout.marginHeight = 5;
-		gridLayout.verticalSpacing = 2;
-		gridLayout.horizontalSpacing = 0;
-		gridComposite.setLayout(gridLayout);
-		createSeasonalPeriodParameterField(gridComposite);
-		createSeasonalsPerTrendParameterField(gridComposite);
-		createExtractNoiseCheckBox(gridComposite);
-		Composite formSelectionComposite = new Composite(columnContainer,
-				SWT.NONE);
-		GridLayout formSelectionLayout = new GridLayout(2, false);
-		formSelectionComposite.setLayout(formSelectionLayout);
-		createSeasonalShapeSelectionField(formSelectionComposite);
-		createTrendShapeSelectionField(formSelectionComposite);
-		createOperatorSelectionField(formSelectionComposite);
+    /**
+     * Set titles.
+     */
+    @Override
+    public void create() {
+        super.create();
+        setTitle("Extract Sequence from Arrival Rate File");
+    }
 
-		return dialogContainer;
-	}
+    /**
+     * Create GUI elements.
+     *
+     * @param parent
+     *            the parent
+     * @return the control
+     */
+    @Override
+    protected Control createDialogArea(Composite parent) {
+        Composite dialogContainer = (Composite) super.createDialogArea(parent);
+        Composite columnContainer = new Composite(dialogContainer, SWT.NONE);
+        columnContainer.setLayout(new FillLayout(SWT.VERTICAL));
+        Composite gridComposite = new Composite(columnContainer, SWT.NONE);
+        GridLayout gridLayout = new GridLayout(5, false);
+        gridLayout.marginWidth = 5;
+        gridLayout.marginHeight = 5;
+        gridLayout.verticalSpacing = 2;
+        gridLayout.horizontalSpacing = 0;
+        gridComposite.setLayout(gridLayout);
+        createSeasonalPeriodParameterField(gridComposite);
+        createSeasonalsPerTrendParameterField(gridComposite);
+        createExtractNoiseCheckBox(gridComposite);
+        Composite formSelectionComposite = new Composite(columnContainer, SWT.NONE);
+        GridLayout formSelectionLayout = new GridLayout(2, false);
+        formSelectionComposite.setLayout(formSelectionLayout);
+        createSeasonalShapeSelectionField(formSelectionComposite);
+        createTrendShapeSelectionField(formSelectionComposite);
+        createOperatorSelectionField(formSelectionComposite);
 
-	// period of seasonal part
-	private void createSeasonalPeriodParameterField(Composite container) {
-		String lastSeasonalPeriod = ProjectManager.retrieveStringFromPreferences(SEASONAL_PERIOD_ID);
-		if (!lastSeasonalPeriod.isEmpty()) {
-			seasonalPeriod = Double.parseDouble(lastSeasonalPeriod);
-		}
-		
-		Label parameterFieldLabel = new Label(container, SWT.NONE);
-		parameterFieldLabel.setText("Seasonal Period: ");
-		GridData parameterFieldData = new GridData();
-		parameterFieldData.grabExcessHorizontalSpace = false;
-		parameterFieldData.horizontalAlignment = SWT.BEGINNING;
-		parameterFieldData.widthHint = 40;
-		seasonalPeriodText = new Text(container, SWT.BORDER);
-		seasonalPeriodText.setText(String.valueOf(seasonalPeriod));
-		seasonalPeriodText.setLayoutData(parameterFieldData);
-		autocorrelationButton = new Button(container, SWT.PUSH);
-		autocorrelationButton.setText("Detect Period");
-		autocorrelationButton.addSelectionListener(new SelectionListener() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				selected();
-			}
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				selected();
-			}
-			private void selected() {
-				double period = Autocorrelation.seasonalPeriodUsingAutocorrelation(readArrivalRates);
-				setSeasonalPeriod(period);
-			}
-		});
-	}
+        return dialogContainer;
+    }
 
-	// seasonals per trend (implicit trend duration)
-	private void createSeasonalsPerTrendParameterField(Composite container) {
-		String lastSeasonalsPerTrend = ProjectManager.retrieveStringFromPreferences(TREND_LENGTH_ID);
-		if (!lastSeasonalsPerTrend.isEmpty()) {
-			seasonalsPerTrend = Integer.parseInt(lastSeasonalsPerTrend);
-		}
-		
-		Label parameterFieldLabel = new Label(container, SWT.NONE);
-		parameterFieldLabel.setText("    Seasonal Periods per Trend: ");
-		GridData parameterFieldData = new GridData();
-		parameterFieldData.grabExcessHorizontalSpace = false;
-		parameterFieldData.horizontalAlignment = SWT.BEGINNING;
-		parameterFieldData.widthHint = 40;
-		seasonalsPerTrendText = new Text(container, SWT.BORDER);
-		seasonalsPerTrendText.setText(String.valueOf(seasonalsPerTrend));
-		seasonalsPerTrendText.setLayoutData(parameterFieldData);
-	}
+    // period of seasonal part
+    private void createSeasonalPeriodParameterField(Composite container) {
+        String lastSeasonalPeriod = ProjectManager.retrieveStringFromPreferences(SEASONAL_PERIOD_ID);
+        if (!lastSeasonalPeriod.isEmpty()) {
+            seasonalPeriod = Double.parseDouble(lastSeasonalPeriod);
+        }
 
-	private void createExtractNoiseCheckBox(Composite container) {
-		boolean boxSelection = false;
-		String lastExtractNoise = ProjectManager.retrieveStringFromPreferences(EXTRACT_NOISE_ID);
-		if (!lastExtractNoise.isEmpty()) {
-			boxSelection = Boolean.parseBoolean(lastExtractNoise);
-		}
-		
-		extractNoiseButton = new Button(container, SWT.CHECK);
-		extractNoiseButton.setText("Extract Noise");
-		extractNoiseButton.setSelection(boxSelection);
-	}
+        Label parameterFieldLabel = new Label(container, SWT.NONE);
+        parameterFieldLabel.setText("Seasonal Period: ");
+        GridData parameterFieldData = new GridData();
+        parameterFieldData.grabExcessHorizontalSpace = false;
+        parameterFieldData.horizontalAlignment = SWT.BEGINNING;
+        parameterFieldData.widthHint = 40;
+        seasonalPeriodText = new Text(container, SWT.BORDER);
+        seasonalPeriodText.setText(String.valueOf(seasonalPeriod));
+        seasonalPeriodText.setLayoutData(parameterFieldData);
+        autocorrelationButton = new Button(container, SWT.PUSH);
+        autocorrelationButton.setText("Detect Period");
+        autocorrelationButton.addSelectionListener(new SelectionListener() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                selected();
+            }
 
-	private void createSeasonalShapeSelectionField(Composite parent) {
-		Label fieldLabel = new Label(parent, SWT.NONE);
-		fieldLabel.setText("Select Seasonal Shape: ");
-		fieldLabel.setAlignment(SWT.RIGHT);
-		seasonalShapeCombo = new Combo(parent, SWT.BORDER);
+            @Override
+            public void widgetDefaultSelected(SelectionEvent e) {
+                selected();
+            }
 
-		GridData textData = new GridData();
-		textData.grabExcessHorizontalSpace = true;
-		textData.horizontalAlignment = SWT.BEGINNING;
-		textData.widthHint = 120;
+            private void selected() {
+                double period = Autocorrelation.seasonalPeriodUsingAutocorrelation(readArrivalRates);
+                setSeasonalPeriod(period);
+            }
+        });
+    }
 
-		seasonalShapeCombo.setLayoutData(textData);
+    // seasonals per trend (implicit trend duration)
+    private void createSeasonalsPerTrendParameterField(Composite container) {
+        String lastSeasonalsPerTrend = ProjectManager.retrieveStringFromPreferences(TREND_LENGTH_ID);
+        if (!lastSeasonalsPerTrend.isEmpty()) {
+            seasonalsPerTrend = Integer.parseInt(lastSeasonalsPerTrend);
+        }
 
-		// populate shapeCombo
-		for (String name : getInitialTrendNames()) {
-			seasonalShapeCombo.add(name);
-		}
-		seasonalShapeCombo.select(seasonalShapeCombo.getItemCount() - 1);
-		String lastSeasonalShape = ProjectManager.retrieveStringFromPreferences(SEASONAL_SHAPE_ID);
-		if (!lastSeasonalShape.isEmpty()) {
-			seasonalShapeCombo.setText(lastSeasonalShape);
-		}
-	}
+        Label parameterFieldLabel = new Label(container, SWT.NONE);
+        parameterFieldLabel.setText("    Seasonal Periods per Trend: ");
+        GridData parameterFieldData = new GridData();
+        parameterFieldData.grabExcessHorizontalSpace = false;
+        parameterFieldData.horizontalAlignment = SWT.BEGINNING;
+        parameterFieldData.widthHint = 40;
+        seasonalsPerTrendText = new Text(container, SWT.BORDER);
+        seasonalsPerTrendText.setText(String.valueOf(seasonalsPerTrend));
+        seasonalsPerTrendText.setLayoutData(parameterFieldData);
+    }
 
-	private void createTrendShapeSelectionField(Composite parent) {
-		Label fieldLabel = new Label(parent, SWT.NONE);
-		fieldLabel.setText("Select Trend Shape: ");
-		fieldLabel.setAlignment(SWT.RIGHT);
-		trendShapeCombo = new Combo(parent, SWT.BORDER);
+    private void createExtractNoiseCheckBox(Composite container) {
+        boolean boxSelection = false;
+        String lastExtractNoise = ProjectManager.retrieveStringFromPreferences(EXTRACT_NOISE_ID);
+        if (!lastExtractNoise.isEmpty()) {
+            boxSelection = Boolean.parseBoolean(lastExtractNoise);
+        }
 
-		GridData textData = new GridData();
-		textData.grabExcessHorizontalSpace = true;
-		textData.horizontalAlignment = SWT.BEGINNING;
-		textData.widthHint = 120;
+        extractNoiseButton = new Button(container, SWT.CHECK);
+        extractNoiseButton.setText("Extract Noise");
+        extractNoiseButton.setSelection(boxSelection);
+    }
 
-		trendShapeCombo.setLayoutData(textData);
+    private void createSeasonalShapeSelectionField(Composite parent) {
+        Label fieldLabel = new Label(parent, SWT.NONE);
+        fieldLabel.setText("Select Seasonal Shape: ");
+        fieldLabel.setAlignment(SWT.RIGHT);
+        seasonalShapeCombo = new Combo(parent, SWT.BORDER);
 
-		// populate shapeCombo
-		for (String name : getInitialTrendNames()) {
-			trendShapeCombo.add(name);
-		}
-		trendShapeCombo.select(trendShapeCombo.getItemCount() - 1);
-		String lastTrendShape = ProjectManager.retrieveStringFromPreferences(TREND_SHAPE_ID);
-		if (!lastTrendShape.isEmpty()) {
-			trendShapeCombo.setText(lastTrendShape);
-		}
-	}
+        GridData textData = new GridData();
+        textData.grabExcessHorizontalSpace = true;
+        textData.horizontalAlignment = SWT.BEGINNING;
+        textData.widthHint = 120;
 
-	private void createOperatorSelectionField(Composite parent) {
-		Label fieldLabel = new Label(parent, SWT.NONE);
-		fieldLabel.setText("Select Trend Operator: ");
-		fieldLabel.setAlignment(SWT.RIGHT);
-		operatorCombo = new Combo(parent, SWT.BORDER);
+        seasonalShapeCombo.setLayoutData(textData);
 
-		GridData textData = new GridData();
-		textData.grabExcessHorizontalSpace = true;
-		textData.horizontalAlignment = SWT.BEGINNING;
-		textData.widthHint = 120;
+        // populate shapeCombo
+        for (String name : getInitialTrendNames()) {
+            seasonalShapeCombo.add(name);
+        }
+        seasonalShapeCombo.select(seasonalShapeCombo.getItemCount() - 1);
+        String lastSeasonalShape = ProjectManager.retrieveStringFromPreferences(SEASONAL_SHAPE_ID);
+        if (!lastSeasonalShape.isEmpty()) {
+            seasonalShapeCombo.setText(lastSeasonalShape);
+        }
+    }
 
-		operatorCombo.setLayoutData(textData);
+    private void createTrendShapeSelectionField(Composite parent) {
+        Label fieldLabel = new Label(parent, SWT.NONE);
+        fieldLabel.setText("Select Trend Shape: ");
+        fieldLabel.setAlignment(SWT.RIGHT);
+        trendShapeCombo = new Combo(parent, SWT.BORDER);
 
-		// populate operatorCombo
-		for (Operator op : Operator.values()) {
-			operatorCombo.add(op.getLiteral());
-		}
-		operatorCombo.setText("MULT");
-		String lastOperator = ProjectManager.retrieveStringFromPreferences(OPERATOR_LITERAL_ID);
-		if (!lastOperator.isEmpty()) {
-			operatorCombo.setText(lastOperator);
-		}
-	}
+        GridData textData = new GridData();
+        textData.grabExcessHorizontalSpace = true;
+        textData.horizontalAlignment = SWT.BEGINNING;
+        textData.widthHint = 120;
 
-	private Collection<String> getInitialTrendNames() {
-		ArrayList<String> initialObjectNames = new ArrayList<String>();
-		for (EClassifier eClassifier : DlimPackage.eINSTANCE.getEClassifiers()) {
-			if (eClassifier instanceof EClass) {
-				EClass eClass = (EClass) eClassifier;
-				if (!eClass.isAbstract()
-						&& DlimPackage.eINSTANCE.getTrend().isSuperTypeOf(
-								eClass)) {
-					initialObjectNames.add(eClass.getName());
-				}
-			}
-		}
-		Collections.sort(initialObjectNames,
-				CommonPlugin.INSTANCE.getComparator());
-		return initialObjectNames;
-	}
+        trendShapeCombo.setLayoutData(textData);
 
-	/**
-	 * Dialog window title.
-	 *
-	 * @param newShell the new shell
-	 */
-	@Override
-	protected void configureShell(Shell newShell) {
-		super.configureShell(newShell);
-		newShell.setText("Extract Sequence");
-	}
+        // populate shapeCombo
+        for (String name : getInitialTrendNames()) {
+            trendShapeCombo.add(name);
+        }
+        trendShapeCombo.select(trendShapeCombo.getItemCount() - 1);
+        String lastTrendShape = ProjectManager.retrieveStringFromPreferences(TREND_SHAPE_ID);
+        if (!lastTrendShape.isEmpty()) {
+            trendShapeCombo.setText(lastTrendShape);
+        }
+    }
 
-	/**
-	 * Cancel button was pressed.
-	 */
-	@Override
-	protected void cancelPressed() {
-		canceled = true;
-		super.cancelPressed();
-	}
+    private void createOperatorSelectionField(Composite parent) {
+        Label fieldLabel = new Label(parent, SWT.NONE);
+        fieldLabel.setText("Select Trend Operator: ");
+        fieldLabel.setAlignment(SWT.RIGHT);
+        operatorCombo = new Combo(parent, SWT.BORDER);
 
-	/**
-	 * Returns true if user has canceled the dialog.
-	 *
-	 * @return true, if successful
-	 */
-	public boolean wasCanceled() {
-		return canceled;
-	}
+        GridData textData = new GridData();
+        textData.grabExcessHorizontalSpace = true;
+        textData.horizontalAlignment = SWT.BEGINNING;
+        textData.widthHint = 120;
 
-	/**
-	 * Read the parameters from their GUI elements.
-	 */
-	@Override
-	protected void okPressed() {
-		boolean error = false;
+        operatorCombo.setLayoutData(textData);
 
-		try {
-			seasonalPeriod = Double.parseDouble(seasonalPeriodText.getText()
-					.trim());
-			if (seasonalPeriod <= 0) {
-				setMessage("Seasonal Period must be greater than 0.",
-						IMessageProvider.ERROR);
-				error = true;
-			}
-		} catch (NumberFormatException e) {
-			setMessage("Seasonal Period must be a number.",
-					IMessageProvider.ERROR);
-			error = true;
-		}
+        // populate operatorCombo
+        for (Operator op : Operator.values()) {
+            operatorCombo.add(op.getLiteral());
+        }
+        operatorCombo.setText("MULT");
+        String lastOperator = ProjectManager.retrieveStringFromPreferences(OPERATOR_LITERAL_ID);
+        if (!lastOperator.isEmpty()) {
+            operatorCombo.setText(lastOperator);
+        }
+    }
 
-		try {
-			seasonalsPerTrend = Integer.parseInt(seasonalsPerTrendText
-					.getText().trim());
-		} catch (NumberFormatException e) {
-			setMessage("Seasonals per Trend must be an integer number.",
-					IMessageProvider.ERROR);
-			error = true;
-		}
+    private Collection<String> getInitialTrendNames() {
+        ArrayList<String> initialObjectNames = new ArrayList<String>();
+        for (EClassifier eClassifier : DlimPackage.eINSTANCE.getEClassifiers()) {
+            if (eClassifier instanceof EClass) {
+                EClass eClass = (EClass) eClassifier;
+                if (!eClass.isAbstract() && DlimPackage.eINSTANCE.getTrend()
+                    .isSuperTypeOf(eClass)) {
+                    initialObjectNames.add(eClass.getName());
+                }
+            }
+        }
+        Collections.sort(initialObjectNames, CommonPlugin.INSTANCE.getComparator());
+        return initialObjectNames;
+    }
 
-		extractNoise = extractNoiseButton.getSelection();
-		ProjectManager.saveStringToPreferences(EXTRACT_NOISE_ID, String.valueOf(extractNoise));
-		seasonalShape = seasonalShapeCombo.getText().trim();
-		ProjectManager.saveStringToPreferences(SEASONAL_SHAPE_ID, seasonalShape);
-		trendShape = trendShapeCombo.getText().trim();
-		ProjectManager.saveStringToPreferences(TREND_SHAPE_ID, trendShape);
-		operatorLiteral = operatorCombo.getText().trim();
-		ProjectManager.saveStringToPreferences(OPERATOR_LITERAL_ID, operatorLiteral);
+    /**
+     * Dialog window title.
+     *
+     * @param newShell
+     *            the new shell
+     */
+    @Override
+    protected void configureShell(Shell newShell) {
+        super.configureShell(newShell);
+        newShell.setText("Extract Sequence");
+    }
 
-		if (!error) {
+    /**
+     * Cancel button was pressed.
+     */
+    @Override
+    protected void cancelPressed() {
+        canceled = true;
+        super.cancelPressed();
+    }
 
-			//store data
-			ProjectManager.saveStringToPreferences(SEASONAL_PERIOD_ID, String.valueOf(seasonalPeriod));
-			ProjectManager.saveStringToPreferences(TREND_LENGTH_ID, String.valueOf(seasonalsPerTrend));
-			
-			// Perform extraction
-			try {
-				performExtraction(rootSequence,
-								readArrivalRates, getSeasonalPeriod(),
-								getSeasonalsPerTrend(), getSeasonalShape(),
-								getTrendShape(), getOperatorLiteral(),
-								isExtractNoise());
-				super.okPressed();
-			} catch (CalibrationException e) {
-				setMessage("Model Extraction Error: " + e.getMessage(),
-						IMessageProvider.ERROR);
-			}
+    /**
+     * Returns true if user has canceled the dialog.
+     *
+     * @return true, if successful
+     */
+    public boolean wasCanceled() {
+        return canceled;
+    }
 
-		}
-	}
-	
-	/**
-	 * Launches the Extraction. Override to reuse dialog for other extractions.
-	 * @param root the root
-	 * @param arrList the read list of arrival rates
-	 * @param period the seasonal period
-	 * @param seasonalsPerTrend the seasonals per trend (trend segment length)
-	 * @param seasonalShape the seasonal shape
-	 * @param trendShape the trend shape
-	 * @param operatorLiteral the operator literal (how is the trend to be applied to the seasonal part)
-	 * @param extractNoise true, if noise is to be reduced and extracted
-	 * @throws CalibrationException exception if calibration is ineffective (devision by 0 or unused function)
-	 */
-	protected void performExtraction(Sequence root,
-			List<ArrivalRateTuple> arrList, double period,
-			int seasonalsPerTrend, String seasonalShape, String trendShape,
-			String operatorLiteral, boolean extractNoise) throws CalibrationException {
-		ModelExtractor
-		.extractArrivalRateFileIntoSequenceNoSplits(root,
-				arrList, getSeasonalPeriod(),
-				getSeasonalsPerTrend(), getSeasonalShape(),
-				getTrendShape(), getOperatorLiteral(),
-				isExtractNoise());
-	}
+    /**
+     * Read the parameters from their GUI elements.
+     */
+    @Override
+    protected void okPressed() {
+        boolean error = false;
 
-	/**
-	 * Gets the seasonal period.
-	 *
-	 * @return the seasonal period
-	 */
-	public double getSeasonalPeriod() {
-		return seasonalPeriod;
-	}
-	
-	/**
-	 * Sets the seasonal period. Updates dialog texts.
-	 *
-	 * @param seasonalPeriod the seasonal period
-	 */
-	protected void setSeasonalPeriod(double seasonalPeriod) {
-		this.seasonalPeriod = seasonalPeriod;
-		seasonalPeriodText.setText(String.valueOf(seasonalPeriod));
-	}
+        try {
+            seasonalPeriod = Double.parseDouble(seasonalPeriodText.getText()
+                .trim());
+            if (seasonalPeriod <= 0) {
+                setMessage("Seasonal Period must be greater than 0.", IMessageProvider.ERROR);
+                error = true;
+            }
+        } catch (NumberFormatException e) {
+            setMessage("Seasonal Period must be a number.", IMessageProvider.ERROR);
+            error = true;
+        }
 
-	/**
-	 * Gets the seasonals per trend.
-	 *
-	 * @return the seasonals per trend
-	 */
-	public int getSeasonalsPerTrend() {
-		return seasonalsPerTrend;
-	}
+        try {
+            seasonalsPerTrend = Integer.parseInt(seasonalsPerTrendText.getText()
+                .trim());
+        } catch (NumberFormatException e) {
+            setMessage("Seasonals per Trend must be an integer number.", IMessageProvider.ERROR);
+            error = true;
+        }
 
-	/**
-	 * Gets the seasonal shape.
-	 *
-	 * @return the seasonal shape
-	 */
-	public String getSeasonalShape() {
-		return seasonalShape;
-	}
+        extractNoise = extractNoiseButton.getSelection();
+        ProjectManager.saveStringToPreferences(EXTRACT_NOISE_ID, String.valueOf(extractNoise));
+        seasonalShape = seasonalShapeCombo.getText()
+            .trim();
+        ProjectManager.saveStringToPreferences(SEASONAL_SHAPE_ID, seasonalShape);
+        trendShape = trendShapeCombo.getText()
+            .trim();
+        ProjectManager.saveStringToPreferences(TREND_SHAPE_ID, trendShape);
+        operatorLiteral = operatorCombo.getText()
+            .trim();
+        ProjectManager.saveStringToPreferences(OPERATOR_LITERAL_ID, operatorLiteral);
 
-	/**
-	 * Gets the trend shape.
-	 *
-	 * @return the trend shape
-	 */
-	public String getTrendShape() {
-		return trendShape;
-	}
+        if (!error) {
 
-	/**
-	 * Gets the operator literal.
-	 *
-	 * @return the operator literal
-	 */
-	public String getOperatorLiteral() {
-		return operatorLiteral;
-	}
+            // store data
+            ProjectManager.saveStringToPreferences(SEASONAL_PERIOD_ID, String.valueOf(seasonalPeriod));
+            ProjectManager.saveStringToPreferences(TREND_LENGTH_ID, String.valueOf(seasonalsPerTrend));
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.dialogs.TitleAreaDialog#getInitialSize()
-	 */
-	@Override
-	protected Point getInitialSize() {
-		// return new Point(340,600);
-		return super.getInitialSize();
-	}
+            // Perform extraction
+            try {
+                performExtraction(rootSequence, readArrivalRates, getSeasonalPeriod(), getSeasonalsPerTrend(),
+                        getSeasonalShape(), getTrendShape(), getOperatorLiteral(), isExtractNoise());
+                super.okPressed();
+            } catch (CalibrationException e) {
+                setMessage("Model Extraction Error: " + e.getMessage(), IMessageProvider.ERROR);
+            }
 
-	/**
-	 * Checks if is extract noise.
-	 *
-	 * @return true, if is extract noise
-	 */
-	public boolean isExtractNoise() {
-		return extractNoise;
-	}
+        }
+    }
+
+    /**
+     * Launches the Extraction. Override to reuse dialog for other extractions.
+     * 
+     * @param root
+     *            the root
+     * @param arrList
+     *            the read list of arrival rates
+     * @param period
+     *            the seasonal period
+     * @param seasonalsPerTrend
+     *            the seasonals per trend (trend segment length)
+     * @param seasonalShape
+     *            the seasonal shape
+     * @param trendShape
+     *            the trend shape
+     * @param operatorLiteral
+     *            the operator literal (how is the trend to be applied to the seasonal part)
+     * @param extractNoise
+     *            true, if noise is to be reduced and extracted
+     * @throws CalibrationException
+     *             exception if calibration is ineffective (devision by 0 or unused function)
+     */
+    protected void performExtraction(Sequence root, List<ArrivalRateTuple> arrList, double period,
+            int seasonalsPerTrend, String seasonalShape, String trendShape, String operatorLiteral,
+            boolean extractNoise) throws CalibrationException {
+        ModelExtractor.extractArrivalRateFileIntoSequenceNoSplits(root, arrList, getSeasonalPeriod(),
+                getSeasonalsPerTrend(), getSeasonalShape(), getTrendShape(), getOperatorLiteral(), isExtractNoise());
+    }
+
+    /**
+     * Gets the seasonal period.
+     *
+     * @return the seasonal period
+     */
+    public double getSeasonalPeriod() {
+        return seasonalPeriod;
+    }
+
+    /**
+     * Sets the seasonal period. Updates dialog texts.
+     *
+     * @param seasonalPeriod
+     *            the seasonal period
+     */
+    protected void setSeasonalPeriod(double seasonalPeriod) {
+        this.seasonalPeriod = seasonalPeriod;
+        seasonalPeriodText.setText(String.valueOf(seasonalPeriod));
+    }
+
+    /**
+     * Gets the seasonals per trend.
+     *
+     * @return the seasonals per trend
+     */
+    public int getSeasonalsPerTrend() {
+        return seasonalsPerTrend;
+    }
+
+    /**
+     * Gets the seasonal shape.
+     *
+     * @return the seasonal shape
+     */
+    public String getSeasonalShape() {
+        return seasonalShape;
+    }
+
+    /**
+     * Gets the trend shape.
+     *
+     * @return the trend shape
+     */
+    public String getTrendShape() {
+        return trendShape;
+    }
+
+    /**
+     * Gets the operator literal.
+     *
+     * @return the operator literal
+     */
+    public String getOperatorLiteral() {
+        return operatorLiteral;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.dialogs.TitleAreaDialog#getInitialSize()
+     */
+    @Override
+    protected Point getInitialSize() {
+        // return new Point(340,600);
+        return super.getInitialSize();
+    }
+
+    /**
+     * Checks if is extract noise.
+     *
+     * @return true, if is extract noise
+     */
+    public boolean isExtractNoise() {
+        return extractNoise;
+    }
 }
