@@ -6,7 +6,7 @@ Automatic-Module-Name: tools.descartes.dlim.generator
 Bundle-Version: 0.15.9.qualifier
 Bundle-ClassPath: .,
  lib/dtw.jar
-Bundle-Activator: tools.descartes.dlim.DlimGeneratorPlugin$Implementation
+Bundle-Activator: tools.descartes.dlim.generator.Activator
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.5.0",

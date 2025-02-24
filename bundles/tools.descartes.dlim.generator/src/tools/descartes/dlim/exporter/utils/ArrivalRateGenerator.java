@@ -19,85 +19,84 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 
 import tools.descartes.dlim.DlimGeneratorPlugin;
+import tools.descartes.dlim.generator.Activator;
 import tools.descartes.dlim.generator.ArrivalRateTuple;
 import tools.descartes.dlim.generator.ModelEvaluator;
 
 /**
- * Generates an arrival rate file and chart by sampling a Descartes Load
- * Intensity Model using a given ModelEvaluator.
+ * Generates an arrival rate file and chart by sampling a Descartes Load Intensity Model using a
+ * given ModelEvaluator.
  *
  * @author Joakim von Kistowski
  *
  */
 public final class ArrivalRateGenerator {
 
-	/**
-	 * It's all static anyways.
-	 */
-	private ArrivalRateGenerator() {
+    /**
+     * It's all static anyways.
+     */
+    private ArrivalRateGenerator() {
 
-	}
+    }
 
-	/**
-	 * Run the ArrivalRateGenerator.
-	 *
-	 * @param evaluator the evaluator
-	 * @param step            The width of the sampling interval.
-	 * @return A list of ArrivalRateTuples (Time-stamps and arrival rates)
-	 *         sampled from the model.
-	 */
-	public static List<ArrivalRateTuple> generateArrivalRates(
-			ModelEvaluator evaluator, double step) {
-		ArrayList<ArrivalRateTuple> arrRates = new ArrayList<ArrivalRateTuple>();
-		for (double i = step / 2; i < evaluator.getTerminatingDuration(); i += step) {
-			double arrRate = evaluator.getArrivalRateAtTime(i);
-			arrRates.add(new ArrivalRateTuple(i, arrRate));
-		}
-		return arrRates;
-	}
+    /**
+     * Run the ArrivalRateGenerator.
+     *
+     * @param evaluator
+     *            the evaluator
+     * @param step
+     *            The width of the sampling interval.
+     * @return A list of ArrivalRateTuples (Time-stamps and arrival rates) sampled from the model.
+     */
+    public static List<ArrivalRateTuple> generateArrivalRates(ModelEvaluator evaluator, double step) {
+        ArrayList<ArrivalRateTuple> arrRates = new ArrayList<ArrivalRateTuple>();
+        for (double i = step / 2; i < evaluator.getTerminatingDuration(); i += step) {
+            double arrRate = evaluator.getArrivalRateAtTime(i);
+            arrRates.add(new ArrivalRateTuple(i, arrRate));
+        }
+        return arrRates;
+    }
 
-	/**
-	 * Run the ArrivalRateGenerator and write the results to a .txt file and an
-	 * arrival rate plot.
-	 *
-	 * @param arrRates the arr rates
-	 * @param projectPath the project path
-	 * @param modelName the model name
-	 * @param endOfLineCharacter            The character before the end of a line in the output file.
-	 *            Note: the "\n" is always printed after this character. It does
-	 *            not have to be included here.
-	 * @param fileSuffix            The file suffix ("txt","csv" ...)
-	 */
-	public static void writeArrivalRates(List<ArrivalRateTuple> arrRates,
-			String projectPath, String modelName, String endOfLineCharacter,
-			String fileSuffix) {
-		try {
-			IPath arrivalRateFolderPath = new Path(projectPath)
-			.append("arrivalRates");
-			File arrivalRateFolder = arrivalRateFolderPath.toFile();
-			if (!arrivalRateFolder.exists()) {
-				arrivalRateFolder.mkdir();
-			}
-			IPath arrivalRateTxtPath = arrivalRateFolderPath.append(modelName
-					+ "ArrivalRates." + fileSuffix);
-			PrintWriter arrRateWriter;
-			arrRateWriter = new PrintWriter(arrivalRateTxtPath.toString(),
-					"UTF-8");
+    /**
+     * Run the ArrivalRateGenerator and write the results to a .txt file and an arrival rate plot.
+     *
+     * @param arrRates
+     *            the arr rates
+     * @param projectPath
+     *            the project path
+     * @param modelName
+     *            the model name
+     * @param endOfLineCharacter
+     *            The character before the end of a line in the output file. Note: the "\n" is
+     *            always printed after this character. It does not have to be included here.
+     * @param fileSuffix
+     *            The file suffix ("txt","csv" ...)
+     */
+    public static void writeArrivalRates(List<ArrivalRateTuple> arrRates, String projectPath, String modelName,
+            String endOfLineCharacter, String fileSuffix) {
+        try {
+            IPath arrivalRateFolderPath = new Path(projectPath).append("arrivalRates");
+            File arrivalRateFolder = arrivalRateFolderPath.toFile();
+            if (!arrivalRateFolder.exists()) {
+                arrivalRateFolder.mkdir();
+            }
+            IPath arrivalRateTxtPath = arrivalRateFolderPath.append(modelName + "ArrivalRates." + fileSuffix);
+            PrintWriter arrRateWriter;
+            arrRateWriter = new PrintWriter(arrivalRateTxtPath.toString(), "UTF-8");
 
-			for (ArrivalRateTuple tuple : arrRates) {
-				double arrRate = tuple.getArrivalRate();
-				double time = tuple.getTimeStamp();
-				arrRateWriter
-				.println(time + "," + arrRate + endOfLineCharacter);
-			}
-			arrRateWriter.close();
+            for (ArrivalRateTuple tuple : arrRates) {
+                double arrRate = tuple.getArrivalRate();
+                double time = tuple.getTimeStamp();
+                arrRateWriter.println(time + "," + arrRate + endOfLineCharacter);
+            }
+            arrRateWriter.close();
 
-		} catch (FileNotFoundException e) {
-			DlimGeneratorPlugin.INSTANCE.log(
-					new Status(Status.ERROR, DlimGeneratorPlugin.PLUGIN_ID, "IO error writing Arrival Rate file.", e));
-		} catch (UnsupportedEncodingException e) {
-			DlimGeneratorPlugin.INSTANCE.log(
-					new Status(Status.ERROR, DlimGeneratorPlugin.PLUGIN_ID, "IO error writing Arrival Rate file.", e));
-		}
-	}
+        } catch (FileNotFoundException e) {
+            DlimGeneratorPlugin.INSTANCE
+                .log(new Status(Status.ERROR, Activator.PLUGIN_ID, "IO error writing Arrival Rate file.", e));
+        } catch (UnsupportedEncodingException e) {
+            DlimGeneratorPlugin.INSTANCE
+                .log(new Status(Status.ERROR, Activator.PLUGIN_ID, "IO error writing Arrival Rate file.", e));
+        }
+    }
 }

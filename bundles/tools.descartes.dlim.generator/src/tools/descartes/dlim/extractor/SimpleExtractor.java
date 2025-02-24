@@ -14,33 +14,31 @@ import org.eclipse.core.runtime.Status;
 import tools.descartes.dlim.DlimGeneratorPlugin;
 import tools.descartes.dlim.Sequence;
 import tools.descartes.dlim.assistant.CalibrationException;
+import tools.descartes.dlim.generator.Activator;
 import tools.descartes.dlim.generator.ArrivalRateTuple;
 
 /**
- * Default implementation of the IDlimExtractor interface for the Extractor
- * extension point. Use this when testing new arrival rate file readers.
+ * Default implementation of the IDlimExtractor interface for the Extractor extension point. Use
+ * this when testing new arrival rate file readers.
  *
  * @author Joakim von Kistowski
  */
 public class SimpleExtractor implements IDlimExtractor {
 
-	/**
-	 * Extracts the read arrival rate list into a DLIM Sequence. Seasonal period
-	 * and Trend length are pre-set.
-	 */
-	@Override
-	public void extractIntoSequence(Sequence root,
-			List<ArrivalRateTuple> readArrivalRates) {
-		try {
-			ModelExtractor.extractArrivalRateFileIntoSequenceBinarySplits(root,
-					readArrivalRates, 24, 2, "SinTrend", "SinTrend", "MULT",
-					false);
-		} catch (CalibrationException e) {
-			DlimGeneratorPlugin.INSTANCE.log(
-					new Status(Status.ERROR, DlimGeneratorPlugin.PLUGIN_ID,
-							"Extration Parameter Exception: " + e.getMessage(), e));
-		}
+    /**
+     * Extracts the read arrival rate list into a DLIM Sequence. Seasonal period and Trend length
+     * are pre-set.
+     */
+    @Override
+    public void extractIntoSequence(Sequence root, List<ArrivalRateTuple> readArrivalRates) {
+        try {
+            ModelExtractor.extractArrivalRateFileIntoSequenceBinarySplits(root, readArrivalRates, 24, 2, "SinTrend",
+                    "SinTrend", "MULT", false);
+        } catch (CalibrationException e) {
+            DlimGeneratorPlugin.INSTANCE.log(new Status(Status.ERROR, Activator.PLUGIN_ID,
+                    "Extration Parameter Exception: " + e.getMessage(), e));
+        }
 
-	}
+    }
 
 }

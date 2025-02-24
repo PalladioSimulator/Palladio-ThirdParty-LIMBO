@@ -32,611 +32,663 @@ import tools.descartes.dlim.extractor.utils.BinarySeasonalSplitter;
 import tools.descartes.dlim.extractor.utils.ExtractionDataContainer;
 import tools.descartes.dlim.extractor.utils.RegressiveTrendExtractor;
 import tools.descartes.dlim.extractor.utils.TimeDistanceSplittingHeuristic;
+import tools.descartes.dlim.generator.Activator;
 import tools.descartes.dlim.generator.ArrivalRateTuple;
 import tools.descartes.dlim.generator.IGeneratorConstants;
 import tools.descartes.dlim.generator.ModelEvaluator;
+
 /**
- * Offers the default model extraction processes as used by the dlim.exporter
- * plugin.
+ * Offers the default model extraction processes as used by the dlim.exporter plugin.
  *
  * @author Joakim von Kistowski
  *
  */
 public final class ModelExtractor {
 
+    /**
+     * The maximum expected amount of seasonal peaks. To be used for noise reduction.
+     */
+    private static final int EXPECTEDMAXPEAKSPERSEASONAL = 8;
 
-	/**
-	 * The maximum expected amount of seasonal peaks. To be used for noise reduction.
-	 */
-	private static final int EXPECTEDMAXPEAKSPERSEASONAL = 8;
+    /**
+     * The read list of arrival rates, may be filtered by the gaussian filter.
+     */
+    // private static List<ArrivalRateTuple> arrivalRateList = new ArrayList<ArrivalRateTuple>();
 
-	/**
-	 *  The read list of arrival rates, may be filtered by the gaussian filter.
-	 */
-	//private static List<ArrivalRateTuple> arrivalRateList = new ArrayList<ArrivalRateTuple>();
+    /**
+     * The original read list of arrival rates, if the gaussian filter was applied to the original
+     * one.
+     */
+    // private static List<ArrivalRateTuple> noisyArrivalRateList = new
+    // ArrayList<ArrivalRateTuple>();
 
-	/**
-	 *  The original read list of arrival rates, if the gaussian filter was
-	 *  applied to the original one.
-	 */
-	//private static List<ArrivalRateTuple> noisyArrivalRateList = new ArrayList<ArrivalRateTuple>();
+    /**
+     * This class is all statics anyways.
+     */
+    private ModelExtractor() {
 
-	/**
-	 * This class is all statics anyways.
-	 */
-	private ModelExtractor() {
+    }
 
-	}
+    /**
+     * Extract an arrival Rate file using the simple extraction process.
+     *
+     * @param root
+     *            the root
+     * @param arrList
+     *            the read list of arrival rates
+     * @param period
+     *            the seasonal period
+     * @param seasonalsPerTrend
+     *            the seasonals per trend (trend segment length)
+     * @param seasonalShape
+     *            the seasonal shape
+     * @param trendShape
+     *            the trend shape
+     * @param operatorLiteral
+     *            the operator literal (how is the trend to be applied to the seasonal part)
+     * @param extractNoise
+     *            true, if noise is to be reduced and extracted
+     * @throws CalibrationException
+     *             exception if calibration is ineffective (devision by 0 or unused function)
+     */
+    public static void extractArrivalRateFileIntoSequenceBinarySplits(Sequence root, List<ArrivalRateTuple> arrList,
+            double period, int seasonalsPerTrend, String seasonalShape, String trendShape, String operatorLiteral,
+            boolean extractNoise) throws CalibrationException {
 
-	/**
-	 * Extract an arrival Rate file using the simple extraction process.
-	 *
-	 * @param root the root
-	 * @param arrList the read list of arrival rates
-	 * @param period the seasonal period
-	 * @param seasonalsPerTrend the seasonals per trend (trend segment length)
-	 * @param seasonalShape the seasonal shape
-	 * @param trendShape the trend shape
-	 * @param operatorLiteral the operator literal (how is the trend to be applied to the seasonal part)
-	 * @param extractNoise true, if noise is to be reduced and extracted
-	 * @throws CalibrationException exception if calibration is ineffective (devision by 0 or unused function)
-	 */
-	public static void extractArrivalRateFileIntoSequenceBinarySplits(Sequence root,
-			List<ArrivalRateTuple> arrList, double period,
-			int seasonalsPerTrend, String seasonalShape, String trendShape,
-			String operatorLiteral, boolean extractNoise)
-					throws CalibrationException {
-		
-		ExtractionDataContainer container = new ExtractionDataContainer(
-				arrList, period, seasonalsPerTrend, seasonalShape, trendShape, operatorLiteral);
-		//Reset splitting counts for pretty names!
-		BinarySeasonalSplitter.resetBinarySplittingCount();
-		BinarySeasonalSplitter.setGlobalContainer(container);
-		
-		setupArrivalRateLists(arrList, container);
-		reduceArrivalRateListNoise(container, extractNoise);
-		BasicSeasonalExtractionUtilities.performMinMaxSearch(container);
+        ExtractionDataContainer container = new ExtractionDataContainer(arrList, period, seasonalsPerTrend,
+                seasonalShape, trendShape, operatorLiteral);
+        // Reset splitting counts for pretty names!
+        BinarySeasonalSplitter.resetBinarySplittingCount();
+        BinarySeasonalSplitter.setGlobalContainer(container);
 
-		Sequence baseline = DlimPackage.eINSTANCE.getDlimFactory()
-				.createSequence();
+        setupArrivalRateLists(arrList, container);
+        reduceArrivalRateListNoise(container, extractNoise);
+        BasicSeasonalExtractionUtilities.performMinMaxSearch(container);
 
-		double duration = 0.0;
-		duration = container.getArrivalRateList().get(container.getArrivalRateList().size() - 1)
-				.getTimeStamp();
-		container.setDuration(duration);
+        Sequence baseline = DlimPackage.eINSTANCE.getDlimFactory()
+            .createSequence();
 
-		// Future Work: get period; use the Fourier approach here?
-		
-		clearRootAndBaseline(root, baseline);
-		//extract seasonal part using splitter
-		BinarySeasonalSplitter splitter = new BinarySeasonalSplitter(container);
-		splitter.appendSplitsToRoot(root, baseline, new TimeDistanceSplittingHeuristic());
-		
-		// build trend part
-		container.setTrendPointValues(RegressiveTrendExtractor.getTrendEndPointsUsingRegression(container));
-		
-		container.setBurstWidth(BasicBurstExtractionUtilities.calculateBurstWidth(container));
-		RegressiveTrendExtractor.buildTrendPart(root, container);
-		RegressiveTrendExtractor.buildTrendPart(baseline, container);
+        double duration = 0.0;
+        duration = container.getArrivalRateList()
+            .get(container.getArrivalRateList()
+                .size() - 1)
+            .getTimeStamp();
+        container.setDuration(duration);
 
-		container.setBursts(BasicBurstExtractionUtilities.getBursts(root, baseline, container));
-		BasicBurstExtractionUtilities.buildBurstPart(root, container);
+        // Future Work: get period; use the Fourier approach here?
 
-		buildNormalNoisePart(root, container, extractNoise);
-	}
-	
-	/**
-	 * Extract an arrival Rate file using the simple extraction process.
-	 *
-	 * @param root the root
-	 * @param arrList the read list of arrival rates
-	 * @param period the seasonal period
-	 * @param seasonalsPerTrend the seasonals per trend (trend segment length)
-	 * @param seasonalShape the seasonal shape
-	 * @param trendShape the trend shape
-	 * @param operatorLiteral the operator literal (how is the trend to be applied to the seasonal part)
-	 * @param extractNoise true, if noise is to be reduced and extracted
-	 * @throws CalibrationException exception if calibration is ineffective (devision by 0 or unused function)
-	 */
-	public static void extractArrivalRateFileIntoSequenceNoSplits(Sequence root,
-			List<ArrivalRateTuple> arrList, double period,
-			int seasonalsPerTrend, String seasonalShape, String trendShape,
-			String operatorLiteral, boolean extractNoise)
-					throws CalibrationException {
-		ExtractionDataContainer container = new ExtractionDataContainer(
-				arrList, period, seasonalsPerTrend, seasonalShape, trendShape, operatorLiteral);
-		setupArrivalRateLists(arrList, container);
-		reduceArrivalRateListNoise(container, extractNoise);
-		BasicSeasonalExtractionUtilities.performMinMaxSearch(container);
+        clearRootAndBaseline(root, baseline);
+        // extract seasonal part using splitter
+        BinarySeasonalSplitter splitter = new BinarySeasonalSplitter(container);
+        splitter.appendSplitsToRoot(root, baseline, new TimeDistanceSplittingHeuristic());
 
-		Sequence baseline = DlimPackage.eINSTANCE.getDlimFactory()
-				.createSequence();
+        // build trend part
+        container.setTrendPointValues(RegressiveTrendExtractor.getTrendEndPointsUsingRegression(container));
 
-		double duration = 0.0;
-		duration = container.getArrivalRateList().get(container.getArrivalRateList().size() - 1)
-				.getTimeStamp();
-		container.setDuration(duration);
+        container.setBurstWidth(BasicBurstExtractionUtilities.calculateBurstWidth(container));
+        RegressiveTrendExtractor.buildTrendPart(root, container);
+        RegressiveTrendExtractor.buildTrendPart(baseline, container);
 
-		// Future Work: get period; use the Fourier approach here?
+        container.setBursts(BasicBurstExtractionUtilities.getBursts(root, baseline, container));
+        BasicBurstExtractionUtilities.buildBurstPart(root, container);
 
-		// build seasonal part
-		BasicSeasonalExtractionUtilities.extractSeasonalPart(root, baseline, container);
+        buildNormalNoisePart(root, container, extractNoise);
+    }
 
-		// build trend part
-		container.setTrendPointValues(getTrendValues(container));
-		
-		container.setBurstWidth(container.getPeriod() / container.getPeakNum());
-		BasicTrendExtractionUtilities.buildTrendPart(root, container, container.getMaxPeakOffset(), true);
-		BasicTrendExtractionUtilities.buildTrendPart(baseline, container, container.getMaxPeakOffset(), true);
+    /**
+     * Extract an arrival Rate file using the simple extraction process.
+     *
+     * @param root
+     *            the root
+     * @param arrList
+     *            the read list of arrival rates
+     * @param period
+     *            the seasonal period
+     * @param seasonalsPerTrend
+     *            the seasonals per trend (trend segment length)
+     * @param seasonalShape
+     *            the seasonal shape
+     * @param trendShape
+     *            the trend shape
+     * @param operatorLiteral
+     *            the operator literal (how is the trend to be applied to the seasonal part)
+     * @param extractNoise
+     *            true, if noise is to be reduced and extracted
+     * @throws CalibrationException
+     *             exception if calibration is ineffective (devision by 0 or unused function)
+     */
+    public static void extractArrivalRateFileIntoSequenceNoSplits(Sequence root, List<ArrivalRateTuple> arrList,
+            double period, int seasonalsPerTrend, String seasonalShape, String trendShape, String operatorLiteral,
+            boolean extractNoise) throws CalibrationException {
+        ExtractionDataContainer container = new ExtractionDataContainer(arrList, period, seasonalsPerTrend,
+                seasonalShape, trendShape, operatorLiteral);
+        setupArrivalRateLists(arrList, container);
+        reduceArrivalRateListNoise(container, extractNoise);
+        BasicSeasonalExtractionUtilities.performMinMaxSearch(container);
 
-		container.setBursts(BasicBurstExtractionUtilities.getBursts(root, baseline, container));
-		BasicBurstExtractionUtilities.buildBurstPart(root, container);
+        Sequence baseline = DlimPackage.eINSTANCE.getDlimFactory()
+            .createSequence();
 
-		buildNormalNoisePart(root, container, extractNoise);
-	}
+        double duration = 0.0;
+        duration = container.getArrivalRateList()
+            .get(container.getArrivalRateList()
+                .size() - 1)
+            .getTimeStamp();
+        container.setDuration(duration);
 
-	/**
-	 * Extract an arrival rate file using the periodic extraction process.
-	 *
-	 * @param root the root
-	 * @param arrList the arr list
-	 * @param period the period
-	 * @param seasonalsPerTrendList the seasonals per trend list
-	 * @param seasonalShape the seasonal shape
-	 * @param trendShape the trend shape
-	 * @param operatorLiteral the operator literal
-	 * @param extractNoise the extract noise
-	 * @throws CalibrationException the calibration exception
-	 */
-	public static void extractSequenceFromArrivalRateFilePeriodic(
-			Sequence root, List<ArrivalRateTuple> arrList, double period,
-			List<int[]> seasonalsPerTrendList, String seasonalShape,
-			String trendShape, String operatorLiteral, boolean extractNoise)
-					throws CalibrationException {
-		ExtractionDataContainer container = new ExtractionDataContainer(
-				arrList, period, 0, seasonalShape, trendShape, operatorLiteral);
-		setupArrivalRateLists(arrList, container);
-		reduceArrivalRateListNoise(container, extractNoise);
-		BasicSeasonalExtractionUtilities.performMinMaxSearch(container);
+        // Future Work: get period; use the Fourier approach here?
 
-		Sequence baseline = DlimPackage.eINSTANCE.getDlimFactory()
-				.createSequence();
+        // build seasonal part
+        BasicSeasonalExtractionUtilities.extractSeasonalPart(root, baseline, container);
 
+        // build trend part
+        container.setTrendPointValues(getTrendValues(container));
 
-		double duration = 0.0;
-		duration = container.getArrivalRateList().get(container.getArrivalRateList().size() - 1)
-				.getTimeStamp();
-		container.setDuration(duration);
+        container.setBurstWidth(container.getPeriod() / container.getPeakNum());
+        BasicTrendExtractionUtilities.buildTrendPart(root, container, container.getMaxPeakOffset(), true);
+        BasicTrendExtractionUtilities.buildTrendPart(baseline, container, container.getMaxPeakOffset(), true);
 
-		// todo: get period; use the Fourier approach here?
+        container.setBursts(BasicBurstExtractionUtilities.getBursts(root, baseline, container));
+        BasicBurstExtractionUtilities.buildBurstPart(root, container);
 
-		// build seasonal part
-		BasicSeasonalExtractionUtilities.extractSeasonalPart(root, baseline, container);
+        buildNormalNoisePart(root, container, extractNoise);
+    }
 
-		// build trend part
-		root.getCombine().clear();
-		for (int[] seasonalsPerTrend : seasonalsPerTrendList) {
-			double[] trendPointValues = getMediandValuesForPeriodicTrend(
-					container, seasonalsPerTrend);
-			BasicTrendExtractionUtilities.buildRepeatingTrend(root, seasonalsPerTrend,
-					trendPointValues, container);
-			BasicTrendExtractionUtilities.buildRepeatingTrend(baseline,
-					seasonalsPerTrend, trendPointValues, container);
-		}
+    /**
+     * Extract an arrival rate file using the periodic extraction process.
+     *
+     * @param root
+     *            the root
+     * @param arrList
+     *            the arr list
+     * @param period
+     *            the period
+     * @param seasonalsPerTrendList
+     *            the seasonals per trend list
+     * @param seasonalShape
+     *            the seasonal shape
+     * @param trendShape
+     *            the trend shape
+     * @param operatorLiteral
+     *            the operator literal
+     * @param extractNoise
+     *            the extract noise
+     * @throws CalibrationException
+     *             the calibration exception
+     */
+    public static void extractSequenceFromArrivalRateFilePeriodic(Sequence root, List<ArrivalRateTuple> arrList,
+            double period, List<int[]> seasonalsPerTrendList, String seasonalShape, String trendShape,
+            String operatorLiteral, boolean extractNoise) throws CalibrationException {
+        ExtractionDataContainer container = new ExtractionDataContainer(arrList, period, 0, seasonalShape, trendShape,
+                operatorLiteral);
+        setupArrivalRateLists(arrList, container);
+        reduceArrivalRateListNoise(container, extractNoise);
+        BasicSeasonalExtractionUtilities.performMinMaxSearch(container);
 
-		container.setBurstWidth(container.getPeriod() / container.getPeakNum());
-		container.setBursts(BasicBurstExtractionUtilities.getBursts(root, baseline, container));
-		BasicBurstExtractionUtilities.buildBurstPart(root, container);
+        Sequence baseline = DlimPackage.eINSTANCE.getDlimFactory()
+            .createSequence();
 
-		buildNormalNoisePart(root, container, extractNoise);
-	}
+        double duration = 0.0;
+        duration = container.getArrivalRateList()
+            .get(container.getArrivalRateList()
+                .size() - 1)
+            .getTimeStamp();
+        container.setDuration(duration);
 
-	/**
-	 * Extract HLDLIM parameters from an arrival rate list.
-	 *
-	 * @param arrivalRateFilePath the arrival rate file path
-	 * @param period the period
-	 * @param offset the offset
-	 * @param seasonalsPerTrend the seasonals per trend
-	 * @param seasonalShape the seasonal shape
-	 * @param trendShape the trend shape
-	 * @param operatorLiteral the operator literal
-	 * @param extractNoise the extract noise
-	 * @return the HL dlim parameter container
-	 * @throws CalibrationException the calibration exception
-	 */
-	public static HLDlimParameterContainer extractArrivalRateFileIntoParameters(
-			String arrivalRateFilePath, double period, double offset,
-			int seasonalsPerTrend, String seasonalShape, String trendShape,
-			String operatorLiteral, boolean extractNoise)
-					throws CalibrationException {
-		ExtractionDataContainer container = new ExtractionDataContainer(
-				new ArrayList<ArrivalRateTuple>(), period, 0, seasonalShape, trendShape, operatorLiteral);
-		HLDlimParameterContainer hlcontainer = new HLDlimParameterContainer();
-		hlcontainer.setSeasonalShape(seasonalShape);
-		hlcontainer.setTrendShape(trendShape);
-		hlcontainer.setOperatorLiteral(operatorLiteral);
-		hlcontainer.setSeasonalPeriod(period);
-		hlcontainer.setSeasonalsPerTrend(seasonalsPerTrend);
-		container.setSeasonalShape(seasonalShape);
-		container.setTrendShape(trendShape);
-		container.setOperatorLiteral(operatorLiteral);
-		container.setPeriod(period);
-		container.setSeasonalsPerTrend(seasonalsPerTrend);
+        // todo: get period; use the Fourier approach here?
 
-		readFile(arrivalRateFilePath, offset, container);
-		reduceArrivalRateListNoise(container, extractNoise);
-		BasicSeasonalExtractionUtilities.performMinMaxSearch(container);
+        // build seasonal part
+        BasicSeasonalExtractionUtilities.extractSeasonalPart(root, baseline, container);
 
-		Sequence root = DlimPackage.eINSTANCE.getDlimFactory().createSequence();
-		Sequence baseline = DlimPackage.eINSTANCE.getDlimFactory()
-				.createSequence();
+        // build trend part
+        root.getCombine()
+            .clear();
+        for (int[] seasonalsPerTrend : seasonalsPerTrendList) {
+            double[] trendPointValues = getMediandValuesForPeriodicTrend(container, seasonalsPerTrend);
+            BasicTrendExtractionUtilities.buildRepeatingTrend(root, seasonalsPerTrend, trendPointValues, container);
+            BasicTrendExtractionUtilities.buildRepeatingTrend(baseline, seasonalsPerTrend, trendPointValues, container);
+        }
 
-		double duration = 0.0;
-		duration = container.getArrivalRateList().get(container.getArrivalRateList().size() - 1)
-				.getTimeStamp();
-		container.setDuration(duration);
+        container.setBurstWidth(container.getPeriod() / container.getPeakNum());
+        container.setBursts(BasicBurstExtractionUtilities.getBursts(root, baseline, container));
+        BasicBurstExtractionUtilities.buildBurstPart(root, container);
 
-		// get base level
-		container.setBase(BasicSeasonalExtractionUtilities.getBaseLevel(container));
-		hlcontainer.setBase(container.getBase());
-		// get peak num
-		container.setPeakNum(BasicSeasonalExtractionUtilities.getPeakNum(container));
-		hlcontainer.setPeakNum(container.getPeakNum());
-		// get peaks
-		container.setPeaks(BasicSeasonalExtractionUtilities.getPeaks(container));
-		hlcontainer.setPeakIntervalWidth(container.getPeaks()[container.getPeaks().length - 1].getTimeStamp()
-				- container.getPeaks()[0].getTimeStamp());
-		ArrivalRateTuple.setSortByTime(false);
-		Arrays.sort(container.getPeaks());
-		if (container.getPeaks()[container.getPeaks().length - 1].getTimeStamp()
-										< container.getPeaks()[0].getTimeStamp()) {
-			hlcontainer.setFirstPeak(container.getPeaks()[container.getPeaks().length - 1].getArrivalRate());
-			hlcontainer.setLastPeak(container.getPeaks()[0].getArrivalRate());
-		} else {
-			hlcontainer.setLastPeak(container.getPeaks()[container.getPeaks().length - 1].getArrivalRate());
-			hlcontainer.setFirstPeak(container.getPeaks()[0].getArrivalRate());
-		}
+        buildNormalNoisePart(root, container, extractNoise);
+    }
 
-		// interpolate new peaks using parameters
-		for (int i = 0; i < container.getPeaks().length; i++) {
-			container.getPeaks()[i].setTimeStamp((period - hlcontainer.getPeakIntervalWidth())
-					/ 2.0
-					+ (i * hlcontainer.getPeakIntervalWidth() / container.getPeaks().length));
-			container.getPeaks()[i].setArrivalRate(hlcontainer.getFirstPeak() - i
-					* (hlcontainer.getFirstPeak() - hlcontainer.getLastPeak())
-					/ container.getPeaks().length);
-		}
+    /**
+     * Extract HLDLIM parameters from an arrival rate list.
+     *
+     * @param arrivalRateFilePath
+     *            the arrival rate file path
+     * @param period
+     *            the period
+     * @param offset
+     *            the offset
+     * @param seasonalsPerTrend
+     *            the seasonals per trend
+     * @param seasonalShape
+     *            the seasonal shape
+     * @param trendShape
+     *            the trend shape
+     * @param operatorLiteral
+     *            the operator literal
+     * @param extractNoise
+     *            the extract noise
+     * @return the HL dlim parameter container
+     * @throws CalibrationException
+     *             the calibration exception
+     */
+    public static HLDlimParameterContainer extractArrivalRateFileIntoParameters(String arrivalRateFilePath,
+            double period, double offset, int seasonalsPerTrend, String seasonalShape, String trendShape,
+            String operatorLiteral, boolean extractNoise) throws CalibrationException {
+        ExtractionDataContainer container = new ExtractionDataContainer(new ArrayList<ArrivalRateTuple>(), period, 0,
+                seasonalShape, trendShape, operatorLiteral);
+        HLDlimParameterContainer hlcontainer = new HLDlimParameterContainer();
+        hlcontainer.setSeasonalShape(seasonalShape);
+        hlcontainer.setTrendShape(trendShape);
+        hlcontainer.setOperatorLiteral(operatorLiteral);
+        hlcontainer.setSeasonalPeriod(period);
+        hlcontainer.setSeasonalsPerTrend(seasonalsPerTrend);
+        container.setSeasonalShape(seasonalShape);
+        container.setTrendShape(trendShape);
+        container.setOperatorLiteral(operatorLiteral);
+        container.setPeriod(period);
+        container.setSeasonalsPerTrend(seasonalsPerTrend);
 
-		container.setMaxPeakOffset(BasicSeasonalExtractionUtilities.getMaxPeakOffset(container.getPeaks()));
-		hlcontainer.setTrendOffset(container.getMaxPeakOffset());
-		// get inner base (get peak num - 1 inner bases)
-		ArrivalRateTuple[] innerBases = BasicSeasonalExtractionUtilities.getInnerBases(container);
-		if (innerBases != null) {
-			ArrivalRateTuple.setSortByTime(false);
-			Arrays.sort(innerBases);
-			double innerBase = innerBases[(innerBases.length - 1) / 2]
-					.getArrivalRate();
-			hlcontainer.setInnerBase(innerBase);
-			for (int i = 0; i < innerBases.length; i++) {
-				innerBases[i].setArrivalRate(innerBase);
-			}
-		}
-		container.setInnerBases(innerBases);
+        readFile(arrivalRateFilePath, offset, container);
+        reduceArrivalRateListNoise(container, extractNoise);
+        BasicSeasonalExtractionUtilities.performMinMaxSearch(container);
 
-		// build seasonal part
-		BasicSeasonalExtractionUtilities.buildSeasonalPart(root, baseline, container);
+        Sequence root = DlimPackage.eINSTANCE.getDlimFactory()
+            .createSequence();
+        Sequence baseline = DlimPackage.eINSTANCE.getDlimFactory()
+            .createSequence();
 
-		// build trend part
-		container.setTrendPointValues(getTrendValues(container));
-		hlcontainer.setTrendPoints(container.getTrendPointValues());
-		BasicTrendExtractionUtilities.buildTrendPart(root, container, container.getMaxPeakOffset(), true);
-		BasicTrendExtractionUtilities.buildTrendPart(baseline, container, container.getMaxPeakOffset(), true);
+        double duration = 0.0;
+        duration = container.getArrivalRateList()
+            .get(container.getArrivalRateList()
+                .size() - 1)
+            .getTimeStamp();
+        container.setDuration(duration);
 
-		container.setBurstWidth(container.getPeriod() / container.getPeakNum());
-		container.setBursts(BasicBurstExtractionUtilities.getBursts(root, baseline, container));
-		hlcontainer.setBurstOffset(12.0);
-		hlcontainer.setBurstPeriod(48.0);
-		if (container.getBursts().size() > 0) {
-			ModelEvaluator evaluator = new ModelEvaluator(root, 0,
-					IGeneratorConstants.CALIBRATION);
-			hlcontainer.setBurstOffset(container.getBursts().get(0).getTimeStamp());
-			hlcontainer.setBurstWidth(container.getBurstWidth());
-			hlcontainer.setBurstPeriod(container.getDuration());
-			hlcontainer
-			.setBurstPeak(container.getBursts().get(0).getArrivalRate()
-					- evaluator.getArrivalRateAtTime(hlcontainer
-							.getBurstOffset()));
-			if (container.getBursts().size() > 1) {
-				// get median inter-burst period
-				double[] interBurstTimes = new double[container.getBursts().size() - 1];
-				for (int i = 0; i < interBurstTimes.length; i++) {
-					interBurstTimes[i] = container.getBursts().get(i + 1).getTimeStamp()
-							- container.getBursts().get(i).getTimeStamp();
-				}
-				Arrays.sort(interBurstTimes);
-				hlcontainer.setBurstPeriod(BasicExtractionUtils.getMedian(interBurstTimes));
-			}
-		}
+        // get base level
+        container.setBase(BasicSeasonalExtractionUtilities.getBaseLevel(container));
+        hlcontainer.setBase(container.getBase());
+        // get peak num
+        container.setPeakNum(BasicSeasonalExtractionUtilities.getPeakNum(container));
+        hlcontainer.setPeakNum(container.getPeakNum());
+        // get peaks
+        container.setPeaks(BasicSeasonalExtractionUtilities.getPeaks(container));
+        hlcontainer.setPeakIntervalWidth(container.getPeaks()[container.getPeaks().length - 1].getTimeStamp()
+                - container.getPeaks()[0].getTimeStamp());
+        ArrivalRateTuple.setSortByTime(false);
+        Arrays.sort(container.getPeaks());
+        if (container.getPeaks()[container.getPeaks().length - 1].getTimeStamp() < container.getPeaks()[0]
+            .getTimeStamp()) {
+            hlcontainer.setFirstPeak(container.getPeaks()[container.getPeaks().length - 1].getArrivalRate());
+            hlcontainer.setLastPeak(container.getPeaks()[0].getArrivalRate());
+        } else {
+            hlcontainer.setLastPeak(container.getPeaks()[container.getPeaks().length - 1].getArrivalRate());
+            hlcontainer.setFirstPeak(container.getPeaks()[0].getArrivalRate());
+        }
 
-		// buildBurstPart(root, period/peakNum, duration, bursts);
-		setUniformNoisePart(hlcontainer, container, extractNoise);
+        // interpolate new peaks using parameters
+        for (int i = 0; i < container.getPeaks().length; i++) {
+            container.getPeaks()[i].setTimeStamp((period - hlcontainer.getPeakIntervalWidth()) / 2.0
+                    + (i * hlcontainer.getPeakIntervalWidth() / container.getPeaks().length));
+            container.getPeaks()[i].setArrivalRate(hlcontainer.getFirstPeak()
+                    - i * (hlcontainer.getFirstPeak() - hlcontainer.getLastPeak()) / container.getPeaks().length);
+        }
 
-		return hlcontainer;
-	}
+        container.setMaxPeakOffset(BasicSeasonalExtractionUtilities.getMaxPeakOffset(container.getPeaks()));
+        hlcontainer.setTrendOffset(container.getMaxPeakOffset());
+        // get inner base (get peak num - 1 inner bases)
+        ArrivalRateTuple[] innerBases = BasicSeasonalExtractionUtilities.getInnerBases(container);
+        if (innerBases != null) {
+            ArrivalRateTuple.setSortByTime(false);
+            Arrays.sort(innerBases);
+            double innerBase = innerBases[(innerBases.length - 1) / 2].getArrivalRate();
+            hlcontainer.setInnerBase(innerBase);
+            for (int i = 0; i < innerBases.length; i++) {
+                innerBases[i].setArrivalRate(innerBase);
+            }
+        }
+        container.setInnerBases(innerBases);
 
-	/*
-	 * Read the arrival rate file. Do not use, when extending LIMBO. Use only
-	 * for HLDLIM paramter extraction.
-	 */
-	private static void readFile(String arrivalRateFilePath, double offset,
-			ExtractionDataContainer container) {
-		container.getArrivalRateList().clear();
+        // build seasonal part
+        BasicSeasonalExtractionUtilities.buildSeasonalPart(root, baseline, container);
 
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(
-					arrivalRateFilePath));
-			String line;
-			while ((line = br.readLine()) != null) {
-				line = line.substring(0, line.length() - 1);
-				String[] numbers = line.split(",");
-				if (numbers.length >= 2) {
-					double timeStamp = Double.parseDouble(numbers[0].trim());
-					double readArrivalRate = Double.parseDouble(numbers[1]
-							.trim());
-					if (timeStamp - offset > 0) {
-						container.getArrivalRateList().add(new ArrivalRateTuple(timeStamp
-								- offset, readArrivalRate));
-					}
-				}
-			}
+        // build trend part
+        container.setTrendPointValues(getTrendValues(container));
+        hlcontainer.setTrendPoints(container.getTrendPointValues());
+        BasicTrendExtractionUtilities.buildTrendPart(root, container, container.getMaxPeakOffset(), true);
+        BasicTrendExtractionUtilities.buildTrendPart(baseline, container, container.getMaxPeakOffset(), true);
 
-			br.close();
+        container.setBurstWidth(container.getPeriod() / container.getPeakNum());
+        container.setBursts(BasicBurstExtractionUtilities.getBursts(root, baseline, container));
+        hlcontainer.setBurstOffset(12.0);
+        hlcontainer.setBurstPeriod(48.0);
+        if (container.getBursts()
+            .size() > 0) {
+            ModelEvaluator evaluator = new ModelEvaluator(root, 0, IGeneratorConstants.CALIBRATION);
+            hlcontainer.setBurstOffset(container.getBursts()
+                .get(0)
+                .getTimeStamp());
+            hlcontainer.setBurstWidth(container.getBurstWidth());
+            hlcontainer.setBurstPeriod(container.getDuration());
+            hlcontainer.setBurstPeak(container.getBursts()
+                .get(0)
+                .getArrivalRate() - evaluator.getArrivalRateAtTime(hlcontainer.getBurstOffset()));
+            if (container.getBursts()
+                .size() > 1) {
+                // get median inter-burst period
+                double[] interBurstTimes = new double[container.getBursts()
+                    .size() - 1];
+                for (int i = 0; i < interBurstTimes.length; i++) {
+                    interBurstTimes[i] = container.getBursts()
+                        .get(i + 1)
+                        .getTimeStamp()
+                            - container.getBursts()
+                                .get(i)
+                                .getTimeStamp();
+                }
+                Arrays.sort(interBurstTimes);
+                hlcontainer.setBurstPeriod(BasicExtractionUtils.getMedian(interBurstTimes));
+            }
+        }
 
-			container.getNoisyArrivalRateList().clear();
-			for (ArrivalRateTuple t : container.getArrivalRateList()) {
-				container.getNoisyArrivalRateList().add(new ArrivalRateTuple(t.getTimeStamp(),
-						t.getArrivalRate()));
-			}
-		} catch (IOException e) {
-			DlimGeneratorPlugin.INSTANCE.log(
-					new Status(Status.ERROR, DlimGeneratorPlugin.PLUGIN_ID,
-							"Arrival Rate File does not exist.", e));
-		}
+        // buildBurstPart(root, period/peakNum, duration, bursts);
+        setUniformNoisePart(hlcontainer, container, extractNoise);
 
-	}
+        return hlcontainer;
+    }
 
-	/**
-	 * Clears root and baseline of pre-existing elements.
-	 */
-	private static void clearRootAndBaseline(Sequence root, Sequence baseline) {
-		root.getSequenceFunctionContainers().clear();
-		root.getCombine().clear();
-		baseline.getSequenceFunctionContainers().clear();
-		baseline.getCombine().clear();
-	}
+    /*
+     * Read the arrival rate file. Do not use, when extending LIMBO. Use only for HLDLIM paramter
+     * extraction.
+     */
+    private static void readFile(String arrivalRateFilePath, double offset, ExtractionDataContainer container) {
+        container.getArrivalRateList()
+            .clear();
 
-	/*
-	 * Get the list of arrival rates at the maximum seasonal peaks. This is
-	 * needed for building the trend part. See HLDLIM trend part definition for
-	 * details.
-	 */
-	private static double[] getTrendValues(ExtractionDataContainer container) {
-		if (container.getSeasonalsPerTrend() <= 0) {
-			return null;
-		}
-		// the extractor always starts at the first local minimum
-		// we have to take this into account when sampling from read values;
-		double extractionOffset = container.getLocalMins().get(0).getTimeStamp();
-		int trendPointNum = (int) (container.getDuration() / container.getPeriod()) / container.getSeasonalsPerTrend();
-		double[] trendValues = new double[trendPointNum];
-		for (int i = 0; i < trendPointNum; i++) {
-			trendValues[i] = BasicExtractionUtils.getArrivalRate(
-					i * container.getPeriod() * container.getSeasonalsPerTrend()
-					+ container.getMaxPeakOffset() + extractionOffset, container.getLocalMaxes(), false);
-		}
-		return trendValues;
-	}
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(arrivalRateFilePath));
+            String line;
+            while ((line = br.readLine()) != null) {
+                line = line.substring(0, line.length() - 1);
+                String[] numbers = line.split(",");
+                if (numbers.length >= 2) {
+                    double timeStamp = Double.parseDouble(numbers[0].trim());
+                    double readArrivalRate = Double.parseDouble(numbers[1].trim());
+                    if (timeStamp - offset > 0) {
+                        container.getArrivalRateList()
+                            .add(new ArrivalRateTuple(timeStamp - offset, readArrivalRate));
+                    }
+                }
+            }
 
-	/*
-	 * Get the median trend values (see getTrendValues) for repeating periodic
-	 * trends.
-	 */
-	private static double[] getMediandValuesForPeriodicTrend(ExtractionDataContainer container,
-			int[] seasonalsPerTrend) {
-		if (seasonalsPerTrend.length <= 0) {
-			return null;
-		}
+            br.close();
 
-		double trendDuration = 0;
-		for (int seasonals : seasonalsPerTrend) {
-			trendDuration += seasonals;
-		}
-		trendDuration *= container.getPeriod();
+            container.getNoisyArrivalRateList()
+                .clear();
+            for (ArrivalRateTuple t : container.getArrivalRateList()) {
+                container.getNoisyArrivalRateList()
+                    .add(new ArrivalRateTuple(t.getTimeStamp(), t.getArrivalRate()));
+            }
+        } catch (IOException e) {
+            DlimGeneratorPlugin.INSTANCE
+                .log(new Status(Status.ERROR, Activator.PLUGIN_ID, "Arrival Rate File does not exist.", e));
+        }
 
-		// the extractor always starts at the first local minimum
-		// we have to take this into account when sampling from read values;
-		double extractionOffset = container.getLocalMins().get(0).getTimeStamp();
-		double[] trendValues = new double[seasonalsPerTrend.length + 1];
-		int currentSeasonalAmount = 0;
-		for (int i = 0; i < seasonalsPerTrend.length; i++) {
-			trendValues[i] = BasicExtractionUtils.getArrivalRate(container.getPeriod() * currentSeasonalAmount
-					+ container.getMaxPeakOffset() + extractionOffset, container.getLocalMaxes(), false);
+    }
 
-			// get Median arrival rate for trend point
-			int trendPeriods =
-					(int) ((container.getDuration() - container.getMaxPeakOffset() - extractionOffset) / trendDuration);
-			double[] arrivalRatesAtPoint = new double[trendPeriods];
-			for (int j = 0; j < trendPeriods; j++) {
-				arrivalRatesAtPoint[j] = BasicExtractionUtils.getArrivalRate(j * trendDuration
-						+ container.getPeriod() * currentSeasonalAmount + container.getMaxPeakOffset()
-						+ extractionOffset, container.getLocalMaxes(), false);
-			}
-			trendValues[i] = BasicExtractionUtils.getMedian(arrivalRatesAtPoint);
+    /**
+     * Clears root and baseline of pre-existing elements.
+     */
+    private static void clearRootAndBaseline(Sequence root, Sequence baseline) {
+        root.getSequenceFunctionContainers()
+            .clear();
+        root.getCombine()
+            .clear();
+        baseline.getSequenceFunctionContainers()
+            .clear();
+        baseline.getCombine()
+            .clear();
+    }
 
-			currentSeasonalAmount += seasonalsPerTrend[i];
-		}
-		trendValues[trendValues.length - 1] = trendValues[0];
-		return trendValues;
-	}
+    /*
+     * Get the list of arrival rates at the maximum seasonal peaks. This is needed for building the
+     * trend part. See HLDLIM trend part definition for details.
+     */
+    private static double[] getTrendValues(ExtractionDataContainer container) {
+        if (container.getSeasonalsPerTrend() <= 0) {
+            return null;
+        }
+        // the extractor always starts at the first local minimum
+        // we have to take this into account when sampling from read values;
+        double extractionOffset = container.getLocalMins()
+            .get(0)
+            .getTimeStamp();
+        int trendPointNum = (int) (container.getDuration() / container.getPeriod()) / container.getSeasonalsPerTrend();
+        double[] trendValues = new double[trendPointNum];
+        for (int i = 0; i < trendPointNum; i++) {
+            trendValues[i] = BasicExtractionUtils
+                .getArrivalRate(i * container.getPeriod() * container.getSeasonalsPerTrend()
+                        + container.getMaxPeakOffset() + extractionOffset, container.getLocalMaxes(), false);
+        }
+        return trendValues;
+    }
 
-	/*
-	 * Create a gaussian filter with a given kernel width.
-	 */
-	private static double[] createGaussianFilter(int width) {
-		int filterWidth = width;
-		if (filterWidth % 2 == 0) {
-			filterWidth++;
-		}
-		filterWidth = Math.max(1, filterWidth);
-		double[] filter = new double[filterWidth];
-		double sigma = Math.sqrt((filterWidth * filterWidth - 1.0) / 12.0);
-		int mean = filterWidth / 2;
-		double filterSum = 0.0;
-		Gaussian gaussian = new Gaussian(mean, sigma);
-		for (int i = 0; i < filterWidth; i++) {
-			filter[i] = gaussian.value(i);
-			filterSum += filter[i];
-		}
+    /*
+     * Get the median trend values (see getTrendValues) for repeating periodic trends.
+     */
+    private static double[] getMediandValuesForPeriodicTrend(ExtractionDataContainer container,
+            int[] seasonalsPerTrend) {
+        if (seasonalsPerTrend.length <= 0) {
+            return null;
+        }
 
-		// normalize to 1
-		for (int i = 0; i < filterWidth; i++) {
-			filter[i] = filter[i] / filterSum;
-		}
+        double trendDuration = 0;
+        for (int seasonals : seasonalsPerTrend) {
+            trendDuration += seasonals;
+        }
+        trendDuration *= container.getPeriod();
 
-		return filter;
-	}
+        // the extractor always starts at the first local minimum
+        // we have to take this into account when sampling from read values;
+        double extractionOffset = container.getLocalMins()
+            .get(0)
+            .getTimeStamp();
+        double[] trendValues = new double[seasonalsPerTrend.length + 1];
+        int currentSeasonalAmount = 0;
+        for (int i = 0; i < seasonalsPerTrend.length; i++) {
+            trendValues[i] = BasicExtractionUtils.getArrivalRate(
+                    container.getPeriod() * currentSeasonalAmount + container.getMaxPeakOffset() + extractionOffset,
+                    container.getLocalMaxes(), false);
 
-	/**
-	 * Reduces noise of a given arrival rate list with an expected seasonal period.
-	 * @param arrivalRates The arrival rates for which to reduce noise.
-	 * @param period Seasonal period within the arrival rate list.
-	 */
-	public static void reduceArrivalRateListNoise(List<ArrivalRateTuple> arrivalRates,
-			double period) {
-		ExtractionDataContainer reductionContainer = new ExtractionDataContainer(arrivalRates, period, 0, null, null, null);
-		reduceArrivalRateListNoise(reductionContainer, true);
-	}
-	
-	/**
-	 * Reduce noise within the read arrival rate list by applying a gaussian
-	 * filter.
-	 * @param container Extraction container.
-	 * @param extractNoise True, if noise is to be extracted.
-	 */
-	private static void reduceArrivalRateListNoise(ExtractionDataContainer container,
-			boolean extractNoise) {
-		if (!extractNoise) {
-			return;
-		}
-		double[] filter = createGaussianFilter((int) (container.getPeriod() / EXPECTEDMAXPEAKSPERSEASONAL));
+            // get Median arrival rate for trend point
+            int trendPeriods = (int) ((container.getDuration() - container.getMaxPeakOffset() - extractionOffset)
+                    / trendDuration);
+            double[] arrivalRatesAtPoint = new double[trendPeriods];
+            for (int j = 0; j < trendPeriods; j++) {
+                arrivalRatesAtPoint[j] = BasicExtractionUtils
+                    .getArrivalRate(
+                            j * trendDuration + container.getPeriod() * currentSeasonalAmount
+                                    + container.getMaxPeakOffset() + extractionOffset,
+                            container.getLocalMaxes(), false);
+            }
+            trendValues[i] = BasicExtractionUtils.getMedian(arrivalRatesAtPoint);
 
-		double[] arrivalRates = new double[container.getArrivalRateList().size()];
-		int index = 0;
-		for (ArrivalRateTuple t : container.getArrivalRateList()) {
-			arrivalRates[index] = t.getArrivalRate();
-			index++;
-		}
-		index = 0;
-		for (ArrivalRateTuple t : container.getArrivalRateList()) {
-			t.setArrivalRate(getFilteredValueAtIndex(arrivalRates, index,
-					filter));
-			index++;
-		}
-	}
+            currentSeasonalAmount += seasonalsPerTrend[i];
+        }
+        trendValues[trendValues.length - 1] = trendValues[0];
+        return trendValues;
+    }
 
-	/*
-	 * Apply gaussian filter to arrival rate at index index.
-	 */
-	private static double getFilteredValueAtIndex(double[] arrivalRateArray,
-			int index, double[] filter) {
-		int filterCenter = filter.length / 2;
+    /*
+     * Create a gaussian filter with a given kernel width.
+     */
+    private static double[] createGaussianFilter(int width) {
+        int filterWidth = width;
+        if (filterWidth % 2 == 0) {
+            filterWidth++;
+        }
+        filterWidth = Math.max(1, filterWidth);
+        double[] filter = new double[filterWidth];
+        double sigma = Math.sqrt((filterWidth * filterWidth - 1.0) / 12.0);
+        int mean = filterWidth / 2;
+        double filterSum = 0.0;
+        Gaussian gaussian = new Gaussian(mean, sigma);
+        for (int i = 0; i < filterWidth; i++) {
+            filter[i] = gaussian.value(i);
+            filterSum += filter[i];
+        }
 
-		double filteredValue = 0.0;
-		for (int i = 0; i < filter.length; i++) {
-			filteredValue += filter[i]
-					* getArrivalRateFromArray(arrivalRateArray, index
-							+ (i - filterCenter));
-		}
-		return filteredValue;
-	}
+        // normalize to 1
+        for (int i = 0; i < filterWidth; i++) {
+            filter[i] = filter[i] / filterSum;
+        }
 
-	/*
-	 * Comfort function. Returns 0 for out of bound array indices.
-	 */
-	private static double getArrivalRateFromArray(double[] array, int index) {
-		if (index < 0 || index >= array.length) {
-			return 0.0;
-		}
-		return array[index];
-	}
+        return filter;
+    }
 
-	/*
-	 * Extracts a normal distributed noise by calculating the difference between
-	 * the filtered and unfiltered arrival rate lists.
-	 */
-	private static void buildNormalNoisePart(Sequence root, ExtractionDataContainer container, boolean extractNoise) {
-		if (!extractNoise) {
-			return;
-		}
-		DlimFactory factory = DlimPackage.eINSTANCE.getDlimFactory();
-		double[] noiseDiffs = new double[container.getArrivalRateList().size()];
-		int index = 0;
-		double sum = 0.0;
-		for (ArrivalRateTuple t : container.getArrivalRateList()) {
-			noiseDiffs[index] = -t.getArrivalRate()
-					+ container.getNoisyArrivalRateList().get(index).getArrivalRate();
-			sum += noiseDiffs[index];
-			index++;
-		}
-		double mean = sum / container.getArrivalRateList().size();
-		double standardDeviation = 0.0;
-		for (int i = 0; i < noiseDiffs.length; i++) {
-			standardDeviation += (noiseDiffs[i] - mean)
-					* (noiseDiffs[i] - mean);
-		}
-		standardDeviation = Math.sqrt(standardDeviation / noiseDiffs.length);
+    /**
+     * Reduces noise of a given arrival rate list with an expected seasonal period.
+     * 
+     * @param arrivalRates
+     *            The arrival rates for which to reduce noise.
+     * @param period
+     *            Seasonal period within the arrival rate list.
+     */
+    public static void reduceArrivalRateListNoise(List<ArrivalRateTuple> arrivalRates, double period) {
+        ExtractionDataContainer reductionContainer = new ExtractionDataContainer(arrivalRates, period, 0, null, null,
+                null);
+        reduceArrivalRateListNoise(reductionContainer, true);
+    }
 
-		Combinator noiseCombinator = factory.createCombinator();
-		NormalNoise noise = factory.createNormalNoise();
-		noise.setMean(mean);
-		noise.setStandardDeviation(standardDeviation);
-		noiseCombinator.setFunction(noise);
-		root.getCombine().add(noiseCombinator);
-	}
+    /**
+     * Reduce noise within the read arrival rate list by applying a gaussian filter.
+     * 
+     * @param container
+     *            Extraction container.
+     * @param extractNoise
+     *            True, if noise is to be extracted.
+     */
+    private static void reduceArrivalRateListNoise(ExtractionDataContainer container, boolean extractNoise) {
+        if (!extractNoise) {
+            return;
+        }
+        double[] filter = createGaussianFilter((int) (container.getPeriod() / EXPECTEDMAXPEAKSPERSEASONAL));
 
-	/*
-	 * Extracts a uniformly distributed noise by calculating the difference
-	 * between the filtered and unfiltered arrival rate lists. Sets the min and
-	 * max at the 10 and 90th percentile.
-	 */
-	private static void setUniformNoisePart(HLDlimParameterContainer hlcontainer,
-			ExtractionDataContainer exdcontainer, boolean extractNoise) {
-		if (!extractNoise) {
-			return;
-		}
-		double[] noiseDiffs = new double[exdcontainer.getArrivalRateList().size()];
-		int index = 0;
-		for (ArrivalRateTuple t : exdcontainer.getArrivalRateList()) {
-			noiseDiffs[index] = -t.getArrivalRate()
-					+ exdcontainer.getNoisyArrivalRateList().get(index).getArrivalRate();
-			index++;
-		}
-		Arrays.sort(noiseDiffs);
-		hlcontainer.setNoiseMin(noiseDiffs[(int) (noiseDiffs.length * 0.1)]);
-		hlcontainer.setNoiseMax(noiseDiffs[(int) (noiseDiffs.length * 0.9)]);
-	}
+        double[] arrivalRates = new double[container.getArrivalRateList()
+            .size()];
+        int index = 0;
+        for (ArrivalRateTuple t : container.getArrivalRateList()) {
+            arrivalRates[index] = t.getArrivalRate();
+            index++;
+        }
+        index = 0;
+        for (ArrivalRateTuple t : container.getArrivalRateList()) {
+            t.setArrivalRate(getFilteredValueAtIndex(arrivalRates, index, filter));
+            index++;
+        }
+    }
 
-	/*
-	 * Setup the original and noisy (backup) arrival rate lists.
-	 */
-	private static void setupArrivalRateLists(final List<ArrivalRateTuple> arrList, ExtractionDataContainer container) {
-		container.setArrivalRateList(arrList);
-		container.getNoisyArrivalRateList().clear();
-		for (ArrivalRateTuple t : container.getArrivalRateList()) {
-			container.getNoisyArrivalRateList().add(new ArrivalRateTuple(t.getTimeStamp(), t
-					.getArrivalRate()));
-		}
-	}
-	
+    /*
+     * Apply gaussian filter to arrival rate at index index.
+     */
+    private static double getFilteredValueAtIndex(double[] arrivalRateArray, int index, double[] filter) {
+        int filterCenter = filter.length / 2;
+
+        double filteredValue = 0.0;
+        for (int i = 0; i < filter.length; i++) {
+            filteredValue += filter[i] * getArrivalRateFromArray(arrivalRateArray, index + (i - filterCenter));
+        }
+        return filteredValue;
+    }
+
+    /*
+     * Comfort function. Returns 0 for out of bound array indices.
+     */
+    private static double getArrivalRateFromArray(double[] array, int index) {
+        if (index < 0 || index >= array.length) {
+            return 0.0;
+        }
+        return array[index];
+    }
+
+    /*
+     * Extracts a normal distributed noise by calculating the difference between the filtered and
+     * unfiltered arrival rate lists.
+     */
+    private static void buildNormalNoisePart(Sequence root, ExtractionDataContainer container, boolean extractNoise) {
+        if (!extractNoise) {
+            return;
+        }
+        DlimFactory factory = DlimPackage.eINSTANCE.getDlimFactory();
+        double[] noiseDiffs = new double[container.getArrivalRateList()
+            .size()];
+        int index = 0;
+        double sum = 0.0;
+        for (ArrivalRateTuple t : container.getArrivalRateList()) {
+            noiseDiffs[index] = -t.getArrivalRate() + container.getNoisyArrivalRateList()
+                .get(index)
+                .getArrivalRate();
+            sum += noiseDiffs[index];
+            index++;
+        }
+        double mean = sum / container.getArrivalRateList()
+            .size();
+        double standardDeviation = 0.0;
+        for (int i = 0; i < noiseDiffs.length; i++) {
+            standardDeviation += (noiseDiffs[i] - mean) * (noiseDiffs[i] - mean);
+        }
+        standardDeviation = Math.sqrt(standardDeviation / noiseDiffs.length);
+
+        Combinator noiseCombinator = factory.createCombinator();
+        NormalNoise noise = factory.createNormalNoise();
+        noise.setMean(mean);
+        noise.setStandardDeviation(standardDeviation);
+        noiseCombinator.setFunction(noise);
+        root.getCombine()
+            .add(noiseCombinator);
+    }
+
+    /*
+     * Extracts a uniformly distributed noise by calculating the difference between the filtered and
+     * unfiltered arrival rate lists. Sets the min and max at the 10 and 90th percentile.
+     */
+    private static void setUniformNoisePart(HLDlimParameterContainer hlcontainer, ExtractionDataContainer exdcontainer,
+            boolean extractNoise) {
+        if (!extractNoise) {
+            return;
+        }
+        double[] noiseDiffs = new double[exdcontainer.getArrivalRateList()
+            .size()];
+        int index = 0;
+        for (ArrivalRateTuple t : exdcontainer.getArrivalRateList()) {
+            noiseDiffs[index] = -t.getArrivalRate() + exdcontainer.getNoisyArrivalRateList()
+                .get(index)
+                .getArrivalRate();
+            index++;
+        }
+        Arrays.sort(noiseDiffs);
+        hlcontainer.setNoiseMin(noiseDiffs[(int) (noiseDiffs.length * 0.1)]);
+        hlcontainer.setNoiseMax(noiseDiffs[(int) (noiseDiffs.length * 0.9)]);
+    }
+
+    /*
+     * Setup the original and noisy (backup) arrival rate lists.
+     */
+    private static void setupArrivalRateLists(final List<ArrivalRateTuple> arrList, ExtractionDataContainer container) {
+        container.setArrivalRateList(arrList);
+        container.getNoisyArrivalRateList()
+            .clear();
+        for (ArrivalRateTuple t : container.getArrivalRateList()) {
+            container.getNoisyArrivalRateList()
+                .add(new ArrivalRateTuple(t.getTimeStamp(), t.getArrivalRate()));
+        }
+    }
+
 }
