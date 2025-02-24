@@ -9,6 +9,7 @@ Export-Package: tools.descartes.dlim,
  tools.descartes.dlim.impl,
  tools.descartes.dlim.util
 Bundle-ClassPath: .
+Bundle-Activator: tools.descartes.dlim.DlimPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

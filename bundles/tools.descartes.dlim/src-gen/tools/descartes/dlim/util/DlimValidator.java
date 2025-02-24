@@ -546,7 +546,7 @@ public class DlimValidator extends EObjectValidator {
      */
 	@Override
 	public ResourceLocator getResourceLocator() {
-        return DlimGeneratorPlugin.INSTANCE;
+        return DlimPlugin.INSTANCE;
     }
 
 } // DlimValidator
