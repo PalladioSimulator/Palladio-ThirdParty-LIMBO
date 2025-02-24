@@ -18,7 +18,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
-import tools.descartes.dlim.DlimGeneratorPlugin;
 import tools.descartes.dlim.Sequence;
 import tools.descartes.dlim.exporter.utils.DlimFileUtils;
 import tools.descartes.dlim.generator.DiffAnalyzer;
@@ -98,7 +97,7 @@ public class DiffRunnerAction implements IObjectActionDelegate {
                         statisticalValues.get(4));
                 resultsDialog.open();
             } catch (IOException e) {
-                DlimGeneratorPlugin.INSTANCE
+                DlimEditorPlugin.getPlugin()
                     .log(new Status(Status.WARNING, DlimEditorPlugin.PLUGIN_ID, "Error reading trace.", e));
             }
         }
