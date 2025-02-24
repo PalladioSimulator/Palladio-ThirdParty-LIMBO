@@ -27,103 +27,102 @@ import tools.descartes.dlim.generator.ModelEvaluator;
 import tools.descartes.dlim.generator.editor.dialogs.DiffResultsDialog;
 import tools.descartes.dlim.generator.editor.dialogs.LaunchDiffDialog;
 import tools.descartes.dlim.generator.editor.utils.ProjectManager;
+import tools.descartes.dlim.presentation.DlimEditorPlugin;
 import tools.descartes.dlim.reader.ArrivalRateReader;
 
 /**
- * This action runs the DiffAnalyzer for a given DLIM. The txt arrival rate file
- * is provided by a LaunchDiffDialog.
+ * This action runs the DiffAnalyzer for a given DLIM. The txt arrival rate file is provided by a
+ * LaunchDiffDialog.
  *
  * @author Joakim von Kistowski
  *
  */
 public class DiffRunnerAction implements IObjectActionDelegate {
 
-	private Shell shell;
-	private ISelection currentSelection;
+    private Shell shell;
+    private ISelection currentSelection;
 
-	/**
-	 * Constructor for DiffRunnerAction.
-	 */
-	public DiffRunnerAction() {
-		super();
-	}
+    /**
+     * Constructor for DiffRunnerAction.
+     */
+    public DiffRunnerAction() {
+        super();
+    }
 
+    /**
+     * Sets the active part.
+     *
+     * @param action
+     *            the action
+     * @param targetPart
+     *            the target part
+     */
+    @Override
+    public void setActivePart(IAction action, IWorkbenchPart targetPart) {
+        shell = targetPart.getSite()
+            .getShell();
+    }
 
-	/**
-	 * Sets the active part.
-	 *
-	 * @param action the action
-	 * @param targetPart the target part
-	 */
-	@Override
-	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-		shell = targetPart.getSite().getShell();
-	}
+    /**
+     * Run the action.
+     *
+     * @param action
+     *            the action
+     */
+    @Override
+    public void run(IAction action) {
+        ProjectManager pManager = new ProjectManager(currentSelection);
 
-	/**
-	 * Run the action.
-	 *
-	 * @param action the action
-	 */
-	@Override
-	public void run(IAction action) {
-		ProjectManager pManager = new ProjectManager(currentSelection);
+        LaunchDiffDialog dialog = new LaunchDiffDialog(DlimFileUtils.getSelectionPath(currentSelection), shell);
+        dialog.open();
 
-		LaunchDiffDialog dialog = new LaunchDiffDialog(
-				DlimFileUtils.getSelectionPath(currentSelection), shell);
-		dialog.open();
+        if (!dialog.wasCanceled()) {
+            ModelEvaluator evaluator = new ModelEvaluator((Sequence) DlimFileUtils.getRootEObject(currentSelection),
+                    dialog.getRndSeed(), IGeneratorConstants.EVALUATION);
+            DiffAnalyzer analyzer = new DiffAnalyzer(evaluator, pManager.getProjectPath());
+            List<Double> statisticalValues;
+            try {
+                statisticalValues = analyzer
+                    .calculateDiff(ArrivalRateReader.readFileToList(dialog.getTxtFilePath(), 0.0), dialog.getOffset());
 
-		if (!dialog.wasCanceled()) {
-			ModelEvaluator evaluator = new ModelEvaluator(
-					(Sequence) DlimFileUtils.getRootEObject(currentSelection),
-					dialog.getRndSeed(), IGeneratorConstants.EVALUATION);
-			DiffAnalyzer analyzer = new DiffAnalyzer(evaluator,
-					pManager.getProjectPath());
-			List<Double> statisticalValues;
-			try {
-				statisticalValues = analyzer.calculateDiff(
-						ArrivalRateReader.readFileToList(dialog.getTxtFilePath(), 0.0), dialog.getOffset());
+                if (statisticalValues.isEmpty()) {
+                    MessageDialog.openError(shell, "Error Calculating Difference.",
+                            "Could not calculate difference.\n" + "This error is most likely caused by trying "
+                                    + "to compare a time stamp file with the model.\n"
+                                    + "Keep in mind that you can only compare the model with arrival rate files "
+                                    + "containing data points of the form \"<time stamp>,<arrival rate>[;]\"");
+                }
 
-				if (statisticalValues.isEmpty()) {
-					MessageDialog.openError(shell, "Error Calculating Difference.",
-							"Could not calculate difference.\n"
-									+ "This error is most likely caused by trying "
-									+ "to compare a time stamp file with the model.\n"
-									+ "Keep in mind that you can only compare the model with arrival rate files "
-									+ "containing data points of the form \"<time stamp>,<arrival rate>[;]\"");
-				}
+                DiffResultsDialog resultsDialog = new DiffResultsDialog(shell, statisticalValues.get(0),
+                        statisticalValues.get(1), statisticalValues.get(2), statisticalValues.get(3),
+                        statisticalValues.get(4));
+                resultsDialog.open();
+            } catch (IOException e) {
+                DlimGeneratorPlugin.INSTANCE
+                    .log(new Status(Status.WARNING, DlimEditorPlugin.PLUGIN_ID, "Error reading trace.", e));
+            }
+        }
 
-				DiffResultsDialog resultsDialog = new DiffResultsDialog(shell,
-						statisticalValues.get(0), statisticalValues.get(1),
-						statisticalValues.get(2), statisticalValues.get(3),
-						statisticalValues.get(4));
-				resultsDialog.open();
-			} catch (IOException e) {
-				DlimGeneratorPlugin.INSTANCE.log(
-						new Status(Status.WARNING, DlimGeneratorPlugin.PLUGIN_ID,
-								"Error reading trace.", e));
-			}
-		}
+        /*
+         * MessageDialog.openInformation( shell, "Diff Results", "Diff mean: " +
+         * statisticalValues.get(0) + ", diff median: " + statisticalValues.get(1) +
+         * ", DTW distance: " + statisticalValues.get(2));
+         */
 
-		/*
-		 * MessageDialog.openInformation( shell, "Diff Results",
-		 * "Diff mean: " + statisticalValues.get(0) + ", diff median: " +
-		 * statisticalValues.get(1) + ", DTW distance: " +
-		 * statisticalValues.get(2));
-		 */
+        pManager.refreshProject();
+    }
 
-		pManager.refreshProject();
-	}
-
-	/**
-	 * Selection changed.
-	 *
-	 * @param action the action
-	 * @param selection the selection
-	 */
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
-		currentSelection = selection;
-	}
+    /**
+     * Selection changed.
+     *
+     * @param action
+     *            the action
+     * @param selection
+     *            the selection
+     */
+    @Override
+    public void selectionChanged(IAction action, ISelection selection) {
+        currentSelection = selection;
+    }
 
 }
