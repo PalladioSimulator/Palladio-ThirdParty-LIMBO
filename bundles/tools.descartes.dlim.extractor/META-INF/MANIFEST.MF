@@ -10,6 +10,6 @@ Require-Bundle: org.eclipse.core.runtime,
  tools.descartes.dlim;bundle-version="0.16.2",
  tools.descartes.dlim.generator;bundle-version="0.16.2",
  tools.descartes.dlim.editor
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .

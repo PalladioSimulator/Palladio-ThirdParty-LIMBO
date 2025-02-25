@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.5.0",
  org.apache.commons.math3;bundle-version="3.2.0",
  tools.descartes.dlim;bundle-version="0.16.2"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: tools.descartes.dlim.assistant,
  tools.descartes.dlim.exporter,
  tools.descartes.dlim.exporter.utils,
