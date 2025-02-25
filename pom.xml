@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>tools.descartes.dlim</groupId>
 	<artifactId>parent</artifactId>	
-	<version>0.16.1-SNAPSHOT</version>
+	<version>0.16.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	
 	<properties>

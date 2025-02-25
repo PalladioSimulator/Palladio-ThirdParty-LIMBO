@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: tools.descartes.dlim.editor;singleton:=true
 Automatic-Module-Name: tools.descartes.dlim.editor
-Bundle-Version: 0.16.1.qualifier
+Bundle-Version: 0.16.2.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: tools.descartes.dlim.presentation.DlimEditorPlugin$Implementation
 Bundle-Vendor: %providerName
@@ -17,5 +17,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  org.eclipse.emf.edit.ui;visibility:=reexport,
  org.eclipse.ui.ide;visibility:=reexport,
- tools.descartes.dlim.generator;bundle-version="0.15.9"
+ tools.descartes.dlim.generator;bundle-version="0.16.2"
 Bundle-ActivationPolicy: lazy

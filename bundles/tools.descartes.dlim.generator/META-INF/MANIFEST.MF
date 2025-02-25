@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: tools.descartes.dlim.generator;singleton:=true
 Automatic-Module-Name: tools.descartes.dlim.generator
-Bundle-Version: 0.16.1.qualifier
+Bundle-Version: 0.16.2.qualifier
 Bundle-ClassPath: .,
  lib/dtw.jar
 Bundle-Activator: tools.descartes.dlim.generator.Activator
@@ -15,7 +15,7 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.5.0",
  org.eclipse.jface;resolution:=optional,
  org.eclipse.emf.ecore.xmi,
  org.apache.commons.math3;bundle-version="3.2.0",
- tools.descartes.dlim;bundle-version="0.16.1"
+ tools.descartes.dlim;bundle-version="0.16.2"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: tools.descartes.dlim.assistant,
