@@ -14,13 +14,6 @@ import org.eclipse.emf.common.util.ResourceLocator;
 public final class DlimPlugin extends EMFPlugin {
 
     /**
-     * The Plugin's ID.
-     * 
-     * @generated not
-     */
-    public static final String PLUGIN_ID = "tools.descartes.dlim";
-
-    /**
      * Keep track of the singleton.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
