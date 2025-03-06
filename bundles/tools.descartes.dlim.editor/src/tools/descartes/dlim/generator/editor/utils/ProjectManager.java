@@ -20,7 +20,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
-import tools.descartes.dlim.exporter.utils.DlimFileUtils;
+import tools.descartes.dlim.generator.ui.utils.DlimFileUtils;
 import tools.descartes.dlim.presentation.DlimEditorPlugin;
 
 /**

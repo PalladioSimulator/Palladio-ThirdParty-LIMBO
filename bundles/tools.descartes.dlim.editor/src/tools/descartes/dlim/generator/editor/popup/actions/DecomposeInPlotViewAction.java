@@ -16,8 +16,8 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
-import tools.descartes.dlim.exporter.utils.DlimFileUtils;
 import tools.descartes.dlim.generator.editor.views.PlotView;
+import tools.descartes.dlim.generator.ui.utils.DlimFileUtils;
 import tools.descartes.dlim.presentation.DlimEditorPlugin;
 
 /**

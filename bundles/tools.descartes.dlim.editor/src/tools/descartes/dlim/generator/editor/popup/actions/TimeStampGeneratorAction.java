@@ -14,10 +14,10 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
 import tools.descartes.dlim.Sequence;
-import tools.descartes.dlim.exporter.utils.DlimFileUtils;
 import tools.descartes.dlim.exporterHandler.ExporterHandler;
 import tools.descartes.dlim.generator.editor.dialogs.SelectExporterDialog;
 import tools.descartes.dlim.generator.editor.utils.ProjectManager;
+import tools.descartes.dlim.generator.ui.utils.DlimFileUtils;
 
 /**
  * Evaluates the model and creates an arrival rate and time-stamp series.

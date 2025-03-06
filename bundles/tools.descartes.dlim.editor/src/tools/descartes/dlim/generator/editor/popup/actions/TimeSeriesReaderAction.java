@@ -21,8 +21,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
-import tools.descartes.dlim.exporter.utils.DlimFileUtils;
 import tools.descartes.dlim.generator.editor.utils.ProjectManager;
+import tools.descartes.dlim.generator.ui.utils.DlimFileUtils;
 import tools.descartes.dlim.presentation.DlimEditorPlugin;
 import tools.descartes.dlim.reader.RequestTimeSeriesReader;
 

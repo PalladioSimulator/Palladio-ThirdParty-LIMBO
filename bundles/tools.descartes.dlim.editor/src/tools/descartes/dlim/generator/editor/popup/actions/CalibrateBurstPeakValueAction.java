@@ -16,11 +16,11 @@ import tools.descartes.dlim.Burst;
 import tools.descartes.dlim.DlimPackage;
 import tools.descartes.dlim.assistant.CalibrationException;
 import tools.descartes.dlim.assistant.Calibrator;
-import tools.descartes.dlim.exporter.utils.DlimFileUtils;
 import tools.descartes.dlim.generator.IGeneratorConstants;
 import tools.descartes.dlim.generator.ModelEvaluator;
 import tools.descartes.dlim.generator.ModelEvaluatorUtil;
 import tools.descartes.dlim.generator.editor.dialogs.LaunchCalibrationDialog;
+import tools.descartes.dlim.generator.ui.utils.DlimFileUtils;
 import tools.descartes.dlim.presentation.DlimEditor;
 
 /**

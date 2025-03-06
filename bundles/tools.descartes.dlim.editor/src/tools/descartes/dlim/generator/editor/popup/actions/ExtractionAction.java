@@ -19,9 +19,9 @@ import org.eclipse.ui.PlatformUI;
 
 import tools.descartes.dlim.DlimPackage;
 import tools.descartes.dlim.Sequence;
-import tools.descartes.dlim.exporter.utils.DlimFileUtils;
 import tools.descartes.dlim.extractorHandler.ExtractorHandler;
 import tools.descartes.dlim.generator.editor.dialogs.SelectExtractorDialog;
+import tools.descartes.dlim.generator.ui.utils.DlimFileUtils;
 import tools.descartes.dlim.presentation.DlimEditor;
 
 /**
