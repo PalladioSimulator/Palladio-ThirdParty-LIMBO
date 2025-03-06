@@ -7,19 +7,12 @@
  *******************************************************************************/
 package tools.descartes.dlim.impl.custom;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
-
-import tools.descartes.dlim.DlimPlugin;
 import tools.descartes.dlim.generator.ArrivalRateTuple;
 import tools.descartes.dlim.impl.ArrivalRatesFromFileImpl;
+import tools.descartes.dlim.io.ArrivalRatesReader;
 
 /**
  * Custom implementation of ArrivalRatesFromFile. Provides the functionality of reading and getting
@@ -29,8 +22,6 @@ import tools.descartes.dlim.impl.ArrivalRatesFromFileImpl;
  *
  */
 public class CustomArrivalRatesFromFileImpl extends ArrivalRatesFromFileImpl {
-    public static final String PLUGIN_ID = "tools.descartes.dlim";
-
     // The list of arrival rate tuples, should be filled (using readFile(String
     // projectPath))
     // before getArrivalRate(double x) is called
@@ -100,28 +91,9 @@ public class CustomArrivalRatesFromFileImpl extends ArrivalRatesFromFileImpl {
      */
     @Override
     public void readFile() {
+        ArrivalRatesReader reader = new ArrivalRatesReader();
         arrRates.clear();
-
-        IPath txtFilePath = new Path(getFilePath().trim());
-
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(txtFilePath.toString()));
-            String line;
-            while ((line = br.readLine()) != null) {
-                line = line.substring(0, line.length() - 1);
-                String[] numbers = line.split(",");
-                if (numbers.length >= 2) {
-                    double timeStamp = Double.parseDouble(numbers[0].trim());
-                    double readArrivalRate = Double.parseDouble(numbers[1].trim());
-                    arrRates.add(new ArrivalRateTuple(timeStamp, readArrivalRate));
-                }
-            }
-
-            br.close();
-        } catch (IOException e) {
-            DlimPlugin.INSTANCE.log(new Status(Status.ERROR, PLUGIN_ID, "Arrival Rate File does not exist.", e));
-        }
-
+        List<ArrivalRateTuple> newArrivalRates = reader.readFile(this);
+        arrRates.addAll(newArrivalRates);
     }
-
 }
