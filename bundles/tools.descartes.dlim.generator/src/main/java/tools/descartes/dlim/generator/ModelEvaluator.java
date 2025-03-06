@@ -8,6 +8,10 @@
 package tools.descartes.dlim.generator;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.commons.math3.random.JDKRandomGenerator;
 import org.eclipse.emf.ecore.EObject;
@@ -21,9 +25,11 @@ import tools.descartes.dlim.Function;
 import tools.descartes.dlim.ReferenceClockObject;
 import tools.descartes.dlim.Sequence;
 import tools.descartes.dlim.TimeDependentFunctionContainer;
+import tools.descartes.dlim.calc.ArrivalRatesCalculator;
 import tools.descartes.dlim.generator.util.ConcurrentModelEvaluator;
 import tools.descartes.dlim.generator.util.FunctionValueCalculator;
 import tools.descartes.dlim.generator.util.TimeKeeper;
+import tools.descartes.dlim.io.ArrivalRatesReader;
 
 /**
  * Takes a Descartes Load Intensity Model and provides the ability to sample its arrival rates at
@@ -43,6 +49,8 @@ public class ModelEvaluator {
 
     // The random number generator
     private JDKRandomGenerator rndGenerator;
+
+    private final Map<ArrivalRatesFromFile, List<ArrivalRateTuple>> arrivalRatesFromFiles;
 
     /**
      * Creates a new ModelEvaluator for a Descartes Load Intensity Model.
@@ -64,7 +72,7 @@ public class ModelEvaluator {
 
         ModelEvaluatorUtil.setRootSequence(rootSequence);
         TimeKeeper.calculateSequenceTime(rootSequence, 0.0);
-        precompute(rootSequence);
+        arrivalRatesFromFiles = precompute(rootSequence);
     }
 
     /**
@@ -291,8 +299,10 @@ public class ModelEvaluator {
     private double calculateFunctionValue(Function f, double x, double rootTime, double loopTime) {
         if (f instanceof Sequence) {
             return calculateSequenceValue((Sequence) f, x, rootTime, loopTime);
-        } else if (f instanceof ArrivalRatesFromFile) {
-            return ((ArrivalRatesFromFile) f).getArrivalRate(x);
+        } else if (f instanceof ArrivalRatesFromFile arrivalRatesFromFile) {
+            ArrivalRatesCalculator arrivalRatesCalculator = new ArrivalRatesCalculator();
+            List<ArrivalRateTuple> rates = arrivalRatesFromFiles.get(arrivalRatesFromFile);
+            return arrivalRatesCalculator.getArrivalRate(x, rates);
         } else if (f instanceof Constant) {
             return ((Constant) f).getConstant();
         } else if (f instanceof CustomFunction) {
@@ -406,13 +416,20 @@ public class ModelEvaluator {
      * Perform necessary precomputations during setup. a.k.a perform all I/O in advance and store it
      * in memory.
      */
-    private void precompute(EObject object) {
-        if (object instanceof ArrivalRatesFromFile) {
-            ((ArrivalRatesFromFile) object).readFile();
+    private Map<ArrivalRatesFromFile, List<ArrivalRateTuple>> precompute(EObject object) {
+        Comparator<ArrivalRatesFromFile> comparator = Comparator.comparing(ArrivalRatesFromFile::getFilePath);
+        Map<ArrivalRatesFromFile, List<ArrivalRateTuple>> arrivalRates = new TreeMap<>(comparator);
+
+        ArrivalRatesReader arrivalRatesReader = new ArrivalRatesReader();
+        if (object instanceof ArrivalRatesFromFile arrivalRatesFromFile) {
+            List<ArrivalRateTuple> rates = arrivalRatesReader.readFile(arrivalRatesFromFile);
+            arrivalRates.put(arrivalRatesFromFile, rates);
         }
         for (EObject child : object.eContents()) {
-            precompute(child);
+            Map<ArrivalRatesFromFile, List<ArrivalRateTuple>> subRates = precompute(child);
+            arrivalRates.putAll(subRates);
         }
+        return arrivalRates;
     }
 
     /**
