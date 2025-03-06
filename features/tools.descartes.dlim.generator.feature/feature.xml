@@ -44,6 +44,13 @@ Further information and source code are available here: http://commons.apache.or
          unpack="false"/>
 
    <plugin
+         id="tools.descartes.dlim.generator.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="tools.descartes.dlim.exporter"
          download-size="0"
          install-size="0"
