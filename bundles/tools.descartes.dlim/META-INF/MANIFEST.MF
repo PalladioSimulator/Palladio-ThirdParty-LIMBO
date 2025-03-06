@@ -5,8 +5,10 @@ Bundle-SymbolicName: tools.descartes.dlim;singleton:=true
 Automatic-Module-Name: tools.descartes.dlim
 Bundle-Version: 0.16.2.qualifier
 Export-Package: tools.descartes.dlim,
+ tools.descartes.dlim.calc,
  tools.descartes.dlim.generator,
  tools.descartes.dlim.impl,
+ tools.descartes.dlim.io,
  tools.descartes.dlim.util
 Bundle-ClassPath: .
 Bundle-Activator: tools.descartes.dlim.DlimPlugin$Implementation
