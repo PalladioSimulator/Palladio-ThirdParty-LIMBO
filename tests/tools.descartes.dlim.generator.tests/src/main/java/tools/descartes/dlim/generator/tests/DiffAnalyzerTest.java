@@ -10,7 +10,10 @@ package tools.descartes.dlim.generator.tests;
 import java.io.IOException;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EPackage;
+
 import junit.framework.TestCase;
+import tools.descartes.dlim.DlimPackage;
 import tools.descartes.dlim.Sequence;
 import tools.descartes.dlim.generator.DiffAnalyzer;
 import tools.descartes.dlim.generator.ModelEvaluator;
@@ -42,6 +45,7 @@ public class DiffAnalyzerTest extends TestCase {
      */
     @Override
     protected void setUp() {
+        EPackage.Registry.INSTANCE.put(DlimPackage.eNS_PREFIX, DlimPackage.eINSTANCE);
         DlimTestUtils.cleanTestOutputDirectories();
     }
 
