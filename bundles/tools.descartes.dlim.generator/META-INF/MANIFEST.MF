@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: tools.descartes.dlim.generator;singleton:=true
 Automatic-Module-Name: tools.descartes.dlim.generator
-Bundle-Version: 0.16.2.qualifier
+Bundle-Version: 0.17.0.qualifier
 Bundle-ClassPath: .,
  lib/dtw.jar
 Bundle-Activator: tools.descartes.dlim.generator.Activator

@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: tools.descartes.dlim.generator.ui
 Bundle-SymbolicName: tools.descartes.dlim.generator.ui
 Automatic-Module-Name: tools.descartes.dlim.generator.ui
-Bundle-Version: 0.16.2.qualifier
+Bundle-Version: 0.17.0.qualifier
 Bundle-Vendor: %providerName
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17

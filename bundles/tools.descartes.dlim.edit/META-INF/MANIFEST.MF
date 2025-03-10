@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: tools.descartes.dlim.edit;singleton:=true
 Automatic-Module-Name: tools.descartes.dlim.edit
-Bundle-Version: 0.16.2.qualifier
+Bundle-Version: 0.17.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: tools.descartes.dlim.provider.DlimEditPlugin$Implementation
 Bundle-Vendor: %providerName
