@@ -881,24 +881,6 @@ public class DlimPackageImpl extends EPackageImpl implements DlimPackage {
      * @generated
      */
 	@Override
-    public EOperation getArrivalRatesFromFile__GetArrivalRate__double() {
-        return arrivalRatesFromFileEClass.getEOperations().get(0);
-    }
-
-	/**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-	@Override
-    public EOperation getArrivalRatesFromFile__ReadFile() {
-        return arrivalRatesFromFileEClass.getEOperations().get(1);
-    }
-
-	/**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-	@Override
     public EClass getAbsoluteValueFunction() {
         return absoluteValueFunctionEClass;
     }
@@ -1097,8 +1079,6 @@ public class DlimPackageImpl extends EPackageImpl implements DlimPackage {
 
         arrivalRatesFromFileEClass = createEClass(ARRIVAL_RATES_FROM_FILE);
         createEAttribute(arrivalRatesFromFileEClass, ARRIVAL_RATES_FROM_FILE__FILE_PATH);
-        createEOperation(arrivalRatesFromFileEClass, ARRIVAL_RATES_FROM_FILE___GET_ARRIVAL_RATE__DOUBLE);
-        createEOperation(arrivalRatesFromFileEClass, ARRIVAL_RATES_FROM_FILE___READ_FILE);
 
         absoluteValueFunctionEClass = createEClass(ABSOLUTE_VALUE_FUNCTION);
 
@@ -1285,11 +1265,6 @@ public class DlimPackageImpl extends EPackageImpl implements DlimPackage {
 
         initEClass(arrivalRatesFromFileEClass, ArrivalRatesFromFile.class, "ArrivalRatesFromFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getArrivalRatesFromFile_FilePath(), ecorePackage.getEString(), "filePath", "C:/arrivalRates/arrivalRateFile.txt", 0, 1, ArrivalRatesFromFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        op = initEOperation(getArrivalRatesFromFile__GetArrivalRate__double(), ecorePackage.getEDouble(), "getArrivalRate", 0, 1, IS_UNIQUE, IS_ORDERED);
-        addEParameter(op, ecorePackage.getEDouble(), "x", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-        initEOperation(getArrivalRatesFromFile__ReadFile(), null, "readFile", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         initEClass(absoluteValueFunctionEClass, AbsoluteValueFunction.class, "AbsoluteValueFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

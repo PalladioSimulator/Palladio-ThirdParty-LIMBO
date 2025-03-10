@@ -2,10 +2,7 @@
  */
 package tools.descartes.dlim.impl;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
@@ -87,28 +84,6 @@ public class ArrivalRatesFromFileImpl extends FunctionImpl implements
      * @generated
      */
 	@Override
-    public double getArrivalRate(double x) {
-        // TODO: implement this method
-        // Ensure that you remove @generated or mark it @generated NOT
-        throw new UnsupportedOperationException();
-    }
-
-	/**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-	@Override
-    public void readFile() {
-        // TODO: implement this method
-        // Ensure that you remove @generated or mark it @generated NOT
-        throw new UnsupportedOperationException();
-    }
-
-	/**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case DlimPackage.ARRIVAL_RATES_FROM_FILE__FILE_PATH:
@@ -156,23 +131,6 @@ public class ArrivalRatesFromFileImpl extends FunctionImpl implements
                 return FILE_PATH_EDEFAULT == null ? filePath != null : !FILE_PATH_EDEFAULT.equals(filePath);
         }
         return super.eIsSet(featureID);
-    }
-
-	/**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-	@Override
-	public Object eInvoke(int operationID, EList<?> arguments)
-			throws InvocationTargetException {
-        switch (operationID) {
-            case DlimPackage.ARRIVAL_RATES_FROM_FILE___GET_ARRIVAL_RATE__DOUBLE:
-                return getArrivalRate((Double)arguments.get(0));
-            case DlimPackage.ARRIVAL_RATES_FROM_FILE___READ_FILE:
-                readFile();
-                return null;
-        }
-        return super.eInvoke(operationID, arguments);
     }
 
 	/**

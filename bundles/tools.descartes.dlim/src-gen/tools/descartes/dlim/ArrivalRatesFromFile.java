@@ -49,18 +49,4 @@ public interface ArrivalRatesFromFile extends Function {
 	 */
 	void setFilePath(String value);
 
-	/**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @model
-     * @generated
-     */
-	double getArrivalRate(double x);
-
-	/**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @model
-     * @generated
-     */
-	void readFile();
-
 } // ArrivalRatesFromFile

@@ -1359,30 +1359,12 @@ public interface DlimPackage extends EPackage {
 	int ARRIVAL_RATES_FROM_FILE_FEATURE_COUNT = FUNCTION_FEATURE_COUNT + 1;
 
 	/**
-	 * The operation id for the '<em>Get Arrival Rate</em>' operation. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int ARRIVAL_RATES_FROM_FILE___GET_ARRIVAL_RATE__DOUBLE = FUNCTION_OPERATION_COUNT + 0;
-
-	/**
-	 * The operation id for the '<em>Read File</em>' operation. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int ARRIVAL_RATES_FROM_FILE___READ_FILE = FUNCTION_OPERATION_COUNT + 1;
-
-	/**
      * The number of operations of the '<em>Arrival Rates From File</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	int ARRIVAL_RATES_FROM_FILE_OPERATION_COUNT = FUNCTION_OPERATION_COUNT + 2;
+	int ARRIVAL_RATES_FROM_FILE_OPERATION_COUNT = FUNCTION_OPERATION_COUNT + 0;
 
 	/**
      * The meta object id for the '{@link tools.descartes.dlim.impl.UnivariateFunctionImpl <em>Univariate Function</em>}' class.
@@ -2265,28 +2247,6 @@ public interface DlimPackage extends EPackage {
 	EAttribute getArrivalRatesFromFile_FilePath();
 
 	/**
-     * Returns the meta object for the '{@link tools.descartes.dlim.ArrivalRatesFromFile#getArrivalRate(double) <em>Get Arrival Rate</em>}' operation.
-     * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-     * @return the meta object for the '<em>Get Arrival Rate</em>' operation.
-     * @see tools.descartes.dlim.ArrivalRatesFromFile#getArrivalRate(double)
-     * @generated
-     */
-	EOperation getArrivalRatesFromFile__GetArrivalRate__double();
-
-	/**
-	 * Returns the meta object for the '
-	 * {@link tools.descartes.dlim.ArrivalRatesFromFile#readFile()
-	 * <em>Read File</em>}' operation. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
-	 * 
-	 * @return the meta object for the '<em>Read File</em>' operation.
-	 * @see tools.descartes.dlim.ArrivalRatesFromFile#readFile()
-	 * @generated
-	 */
-	EOperation getArrivalRatesFromFile__ReadFile();
-
-	/**
      * Returns the meta object for class '{@link tools.descartes.dlim.AbsoluteValueFunction <em>Absolute Value Function</em>}'.
      * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
@@ -2945,20 +2905,6 @@ public interface DlimPackage extends EPackage {
          * @generated
          */
 		EAttribute ARRIVAL_RATES_FROM_FILE__FILE_PATH = eINSTANCE.getArrivalRatesFromFile_FilePath();
-
-		/**
-         * The meta object literal for the '<em><b>Get Arrival Rate</b></em>' operation.
-         * <!-- begin-user-doc --> <!-- end-user-doc -->
-         * @generated
-         */
-		EOperation ARRIVAL_RATES_FROM_FILE___GET_ARRIVAL_RATE__DOUBLE = eINSTANCE.getArrivalRatesFromFile__GetArrivalRate__double();
-
-		/**
-         * The meta object literal for the '<em><b>Read File</b></em>' operation.
-         * <!-- begin-user-doc --> <!-- end-user-doc -->
-         * @generated
-         */
-		EOperation ARRIVAL_RATES_FROM_FILE___READ_FILE = eINSTANCE.getArrivalRatesFromFile__ReadFile();
 
 		/**
          * The meta object literal for the '{@link tools.descartes.dlim.impl.AbsoluteValueFunctionImpl <em>Absolute Value Function</em>}' class.

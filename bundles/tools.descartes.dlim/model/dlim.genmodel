@@ -109,10 +109,6 @@
     </genClasses>
     <genClasses ecoreClass="dlim.ecore#//ArrivalRatesFromFile">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dlim.ecore#//ArrivalRatesFromFile/filePath"/>
-      <genOperations ecoreOperation="dlim.ecore#//ArrivalRatesFromFile/getArrivalRate">
-        <genParameters ecoreParameter="dlim.ecore#//ArrivalRatesFromFile/getArrivalRate/x"/>
-      </genOperations>
-      <genOperations ecoreOperation="dlim.ecore#//ArrivalRatesFromFile/readFile"/>
     </genClasses>
     <genClasses ecoreClass="dlim.ecore#//AbsoluteValueFunction"/>
     <genClasses image="false" ecoreClass="dlim.ecore#//UnivariateFunction">
