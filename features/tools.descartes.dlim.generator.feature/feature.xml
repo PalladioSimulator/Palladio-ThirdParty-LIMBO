@@ -2,7 +2,7 @@
 <feature
       id="tools.descartes.dlim.generator.feature"
       label="LIMBO generator"
-      version="6.0.0.qualifier"
+      version="5.2.2"
       provider-name="Descartes Research Group"
       plugin="org.palladiosimulator.branding"
       license-feature="org.palladiosimulator.license"

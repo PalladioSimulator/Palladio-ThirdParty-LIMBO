@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: tools.descartes.dlim;singleton:=true
 Automatic-Module-Name: tools.descartes.dlim
-Bundle-Version: 6.0.0.qualifier
+Bundle-Version: 5.2.2
 Export-Package: tools.descartes.dlim,
  tools.descartes.dlim.generator,
  tools.descartes.dlim.impl,
