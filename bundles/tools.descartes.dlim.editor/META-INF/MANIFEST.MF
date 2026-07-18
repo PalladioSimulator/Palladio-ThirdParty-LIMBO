@@ -8,7 +8,7 @@ Bundle-ClassPath: .
 Bundle-Activator: tools.descartes.dlim.presentation.DlimEditorPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: tools.descartes.dlim.generator.editor.utils,
  tools.descartes.dlim.presentation
 Require-Bundle: org.eclipse.core.runtime,
